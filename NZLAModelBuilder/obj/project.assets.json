@@ -1001,7 +1001,7 @@
       },
       "JCass_Data/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "CSVFile": "3.1.1",
           "NPOI": "2.6.0"

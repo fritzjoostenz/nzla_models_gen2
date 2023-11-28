@@ -59,9 +59,9 @@ internal static class RoadSegmentLoader
 
                         Length = Convert.ToSingle(fields[columnIndex["length"]]),
                         UrbanRural = Convert.ToString(fields[columnIndex["urban_rural"]]),
-
-                        Rut85th = Convert.ToSingle(fields[columnIndex["length"]]),
-                        Naasra85th = Convert.ToSingle(fields[columnIndex["length"]]),
+                        
+                        Rut85th = (Convert.ToSingle(fields[columnIndex["rut_lwpmean_85"]]) + Convert.ToSingle(fields[columnIndex["rut_rwpmean_85"]]))/2,
+                        Naasra85th = Convert.ToSingle(fields[columnIndex["naasra_85"]]),
 
                         PctFlushing = Convert.ToSingle(fields[columnIndex["pct_flush"]]),
                         PctScabbing = Convert.ToSingle(fields[columnIndex["pct_scabb"]]),

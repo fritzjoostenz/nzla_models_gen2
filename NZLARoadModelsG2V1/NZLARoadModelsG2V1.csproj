@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\jcass_main\JCass_ModelCore\JCass_ModelCore.csproj" />
+    <ProjectReference Include="..\MLModelClasses\MLModelClasses.csproj" />
+  </ItemGroup>
+
+</Project>

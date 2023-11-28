@@ -9,6 +9,10 @@ using System.Reflection.Emit;
 
 string workFolder = @"C:\Users\fritz\Juno Services Dropbox\Local_Authorities\aa_gen2_models\jcass\";
 
+BuilderUtilities.BuildModel(workFolder, "rutting");
+
+BuilderUtilities.BuildModel(workFolder, "naasra");
+
 BuilderUtilities.BuildModel(workFolder, "flushing");
 
 BuilderUtilities.BuildModel(workFolder, "scabbing");

@@ -15,7 +15,7 @@ internal static class BuilderUtilities
 
     public static Dictionary<string, IEstimator<ITransformer>> GetCandidateModels_Logistic(MLContext mlContext)
     {
-        // 
+       
         Dictionary<string, IEstimator<ITransformer>> models = new Dictionary<string, IEstimator<ITransformer>>();
 
         models.Add("lbfgsLogReg", mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression());
@@ -60,6 +60,12 @@ internal static class BuilderUtilities
                 break;
             case "pothole":
                 modelBuilder = new PotholeModelBuilder(workFolder, segments);
+                break;
+            case "rutting":
+                modelBuilder = new RuttingModelBuilder(workFolder, segments);
+                break;
+            case "naasra":
+                modelBuilder = new NaasraModelBuilder(workFolder, segments);
                 break;
             default:
                 throw new Exception($"Distress '{distressName}' is not handled.");
