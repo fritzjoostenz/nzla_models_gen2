@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLModelClasses", "MLModelClasses\MLModelClasses.csproj", "{47D57FED-EB07-4886-B68C-5F752DED48F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NZLAModelBuilder", "NZLAModelBuilder\NZLAModelBuilder.csproj", "{46960A73-372C-4262-B065-95F8EDDA816E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NZLAModelBuilder", "NZLAModelBuilder\NZLAModelBuilder.csproj", "{46960A73-372C-4262-B065-95F8EDDA816E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -72,7 +72,10 @@ internal static class RoadSegmentLoader
 
                     };
 
-                    segments.Add(RoadSegmentBase);
+                    if (RoadSegmentBase.SurfAge > 0)
+                    {
+                        segments.Add(RoadSegmentBase);
+                    }                    
                 }
             }
         }

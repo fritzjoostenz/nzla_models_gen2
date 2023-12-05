@@ -94,7 +94,7 @@ internal class LAsharedGen2
         double[] defects = new double[4];
         defects[0] = model.GetParameterValue("par_pct_lt_cracks", values);
         defects[1] = model.GetParameterValue("par_pct_mesh_cracks", values);
-        defects[2] = model.GetParameterValue("par_pctshoving", values);
+        defects[2] = model.GetParameterValue("par_pct_shoving", values);
         defects[3] = model.GetParameterValue("par_pct_potholes", values);
 
         return JCass_Core.Engineering.IndexCalculator.GetCOST354Index(defects, weights, 4, 20);
@@ -171,4 +171,7 @@ internal class LAsharedGen2
         if (sciValue > sciThreshold) { return 0; }
         return 1;
     }
+
+
+
 }

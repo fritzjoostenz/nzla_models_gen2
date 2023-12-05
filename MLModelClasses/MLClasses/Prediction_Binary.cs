@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLClasses;
+namespace MLModelClasses.MLClasses;
 
 public class Prediction_Binary
 {
 
     // Original label.
-    public Boolean PredictedLabel { get; set; }
+    public bool PredictedLabel { get; set; }
 
     // Predicted score from the trainer.
     public float Score { get; set; }

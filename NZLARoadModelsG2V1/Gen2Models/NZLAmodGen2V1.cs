@@ -22,8 +22,10 @@ using NPOI.SS.Formula.PTG;
 using NPOI.POIFS.Crypt.Dsig.Facets;
 using JCass_ModelCore.Customiser;
 using NZLARoadModelsG2V1.DomainObjects;
-using MLClasses;
 using NZLARoadModelsG2V1.Shared;
+using MLModelClasses.MLClasses;
+using JCass_Data.Objects;
+using JCass_Data.Utils;
 
 namespace JCass_CustomiserSample.Gen2;
 
@@ -44,18 +46,17 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     PieceWiseLinearModel naasraIncremModel;
 
     PieceWiseLinearModel rutToIndexConversionModel;
-
-    private Dictionary<string, PredictionEngine<RoadModSegment, Prediction_Binary>> PredictionModels;
-
+   
     //private PredictionEngine<RoadModSegment, Prediction_Number> SurfLifeExpectedModel;
     private Dictionary<string, double> SurfLifeExpLookup;
 
-    private PredictionEngine<RoadModSegment, Prediction_Binary> RutRiskModel;
-    private PredictionEngine<RoadModSegment, Prediction_Binary> NaasraRiskModel;
-    private PredictionEngine<RoadModSegment, Prediction_Binary> MaintRiskModelPA;
-    private PredictionEngine<RoadModSegment, Prediction_Binary> MaintRiskModelSU;
-    private PredictionEngine<RoadModSegment, Prediction_Number> SurfCondIndexModel;
+    private PredictionEngine<RoadModSegmentV1, Prediction_Binary> RutRiskModel;
+    private PredictionEngine<RoadModSegmentV1, Prediction_Binary> NaasraRiskModel;
+    private PredictionEngine<RoadModSegmentV1, Prediction_Binary> MaintRiskModelPA;
+    private PredictionEngine<RoadModSegmentV1, Prediction_Binary> MaintRiskModelSU;
 
+    private Dictionary<string, DistressProbabilityModel> DistressModels;
+    
     #endregion
 
     #region Lookup Constants
@@ -161,7 +162,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
             Convert.ToDouble(model.Lookups["indexes"]["pdi_weight_shoving"]),
             Convert.ToDouble(model.Lookups["indexes"]["pdi_weight_potholes"])
         };
-        weightsPDI = HelperMethods.NormaliseWeights(weightsPDI);  //Make sure weights add up to 1.0
+        weightsPDI = JCass_Core.Utils.HelperMethods.NormaliseWeights(weightsPDI);  //Make sure weights add up to 1.0
 
         //Set up weights for calculating Weighted Sum as PDI.
         // Important: order of weights must match order of distresses. See LAShared.GetSDI() method.
@@ -171,17 +172,17 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
             Convert.ToDouble(model.Lookups["indexes"]["sdi_weight_mesh_cracks"]),
             Convert.ToDouble(model.Lookups["indexes"]["sdi_weight_potholes"])
         };
-        weightSDI = HelperMethods.NormaliseWeights(weightSDI);  //Make sure weights add up to 1.0
+        weightSDI = JCass_Core.Utils.HelperMethods.NormaliseWeights(weightSDI);  //Make sure weights add up to 1.0
 
         //Set up weights for calculating Weighted Sum as Objective Function Value
         // Important: order of weights must match order of distresses. See LAShared.GetObjective() method.
-        weightsObjective = new double[4] {
+        weightsObjective = new double[3] {
             Convert.ToDouble(model.Lookups["indexes"]["obj_weight_pdi"]),
             Convert.ToDouble(model.Lookups["indexes"]["obj_weight_sdi"]),
-            Convert.ToDouble(model.Lookups["indexes"]["obj_weight_rut"]),
+            //Convert.ToDouble(model.Lookups["indexes"]["obj_weight_rut"]),
             Convert.ToDouble(model.Lookups["indexes"]["obj_weight_structural"])
         };
-        weightsObjective = HelperMethods.NormaliseWeights(weightsObjective);  //Make sure weights add up to 1.0
+        weightsObjective = JCass_Core.Utils.HelperMethods.NormaliseWeights(weightsObjective);  //Make sure weights add up to 1.0
 
         WaitTimeBetweenTreatments = model.GetLookupValueNumber("thresholds", "time_between_treatments");
         GapToNextTreatment = model.GetLookupValueNumber("thresholds", "time_to_next_treatment");
@@ -225,21 +226,23 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     private void SetupMLModels()
     {
-        PredictionModels = new Dictionary<string, PredictionEngine<RoadModSegment, Prediction_Binary>>();
-
-        PredictionModels.Add("par_pct_flushing", GetPredictionEngine_Binary("flushing_model.zip"));
-        PredictionModels.Add("par_pct_scabbing", GetPredictionEngine_Binary("scabbing_model.zip"));
-        PredictionModels.Add("par_pct_lt_cracks", GetPredictionEngine_Binary("lt_cracks_model.zip"));
-        PredictionModels.Add("par_pct_mesh_cracks", GetPredictionEngine_Binary("mesh_cracks_model.zip"));
-        PredictionModels.Add("par_pctshoving", GetPredictionEngine_Binary("shoving_model.zip"));
-        PredictionModels.Add("par_pct_potholes", GetPredictionEngine_Binary("potholes_model.zip"));
-
+        
         RutRiskModel = GetPredictionEngine_Binary("rutting_model.zip");
         NaasraRiskModel = GetPredictionEngine_Binary("naasra_model.zip");
-        
+
+        string coefficientsFilePath = model.ModelSetup.WorkFolder + @"ml_models\logistic_regression_coeffs.csv";
+        this.DistressModels = new Dictionary<string, DistressProbabilityModel>();
+        jcDataSet modelCoeffs = CSVHelper.ReadDataFromCsvFile(coefficientsFilePath, "distress");
+        this.DistressModels.Add("par_pct_flushing", new DistressProbabilityModel(modelCoeffs.Row("pct_flush")));
+        this.DistressModels.Add("par_pct_scabbing", new DistressProbabilityModel(modelCoeffs.Row("pct_scabb")));
+        this.DistressModels.Add("par_pct_lt_cracks", new DistressProbabilityModel(modelCoeffs.Row("pct_lt_crax")));
+        this.DistressModels.Add("par_pct_mesh_cracks", new DistressProbabilityModel(modelCoeffs.Row("pct_allig")));
+        this.DistressModels.Add("par_pct_shoving", new DistressProbabilityModel(modelCoeffs.Row("pct_shove")));
+        this.DistressModels.Add("par_pct_potholes", new DistressProbabilityModel(modelCoeffs.Row("pct_poth")));
+
     }
 
-    private PredictionEngine<RoadModSegment, Prediction_Binary> GetPredictionEngine_Binary(string modelFileName)
+    private PredictionEngine<RoadModSegmentV1, Prediction_Binary> GetPredictionEngine_Binary(string modelFileName)
     {
         string modelFilePath = model.ModelSetup.WorkFolder + @"ml_models\" + modelFileName;
 
@@ -249,11 +252,11 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         ITransformer allInOneModel = mlContext.Model.Load(modelFilePath, out modelSchema);
 
         //Create the prediction engine
-        var engine = mlContext.Model.CreatePredictionEngine<RoadModSegment, Prediction_Binary>(allInOneModel);
+        var engine = mlContext.Model.CreatePredictionEngine<RoadModSegmentV1, Prediction_Binary>(allInOneModel);
         return engine;
     }
 
-    private PredictionEngine<RoadModSegment, Prediction_Number> GetPredictionEngine_Regression(string modelFileName)
+    private PredictionEngine<RoadModSegmentV1, Prediction_Number> GetPredictionEngine_Regression(string modelFileName)
     {
         string modelFilePath = model.ModelSetup.WorkFolder + @"ml_models\" + modelFileName;
 
@@ -263,7 +266,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         ITransformer allInOneModel = mlContext.Model.Load(modelFilePath, out modelSchema);
 
         //Create the prediction engine
-        var engine = mlContext.Model.CreatePredictionEngine<RoadModSegment, Prediction_Number>(allInOneModel);
+        var engine = mlContext.Model.CreatePredictionEngine<RoadModSegmentV1, Prediction_Number>(allInOneModel);
         return engine;
     }
 
@@ -274,47 +277,48 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     public override double[] Initialise(string[] rawRow, double[] newValues)
     {
 
-        RoadModSegment segment = RoadModSegment.LoadFromRawData(model, rawRow);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromRawData(model, rawRow);
 
         double yMax = model.GetRawData_Number(rawRow, "fwd_d0_85");
         double sci = model.GetRawData_Number(rawRow, "fwd_sci_85");
-
+                
+        newValues[PIndex("par_is_rehab_route")] = Convert.ToDouble(segment.IsRehabRoute);
         newValues[PIndex("par_ac_ok")] = LAsharedGen2.CanConsiderAsphaltOverlay(yMax, sci, AsphaltYMaxThreshold, AsphaltSCIThreshold);
 
-        newValues[PIndex("par_struc_remlife")] = segment.RemainingfLife;
+        newValues[PIndex("par_struc_remlife")] = segment.RemainingStructuralLife;
         newValues[PIndex("par_struc_deficit")] = segment.StructuralDeficit;
+        newValues[PIndex("par_pav_age")] = segment.PavementAge;
+
         newValues[PIndex("par_surf_mat")] = model.GetTextToValue("par_surf_mat", segment.SurfMaterial);
         newValues[PIndex("par_surf_class")] = model.GetTextToValue("par_surf_class", segment.SurfClass);
         newValues[PIndex("par_surf_func")] = model.GetTextToValue("par_surf_func", segment.SurfFunction);
         newValues[PIndex("par_surf_thick")] = segment.SurfThickness;
         newValues[PIndex("par_surf_layers")] = segment.SurfLayerCount;
-        newValues[PIndex("par_surf_age")] = segment.SurfAge;
-       
-        newValues[PIndex("par_surf_exp_life")] = segment.SurfLifeExpected;
-        newValues[PIndex("par_surf_life_ach")] = 100 * segment.SurfAge / segment.SurfLifeExpected;
 
-        newValues[PIndex("par_pav_age")] = segment.PavementAge;
+        newValues[PIndex("par_surf_age")] = segment.SurfAge;       
+        newValues[PIndex("par_surf_exp_life")] = segment.SurfLifeExpected;
+        newValues[PIndex("par_surf_life_ach")] = segment.SurfLifeAchievedPercent;
+        newValues[PIndex("par_surf_remain_life")] = segment.SurfLifeRemaining;
+
         newValues[PIndex("par_adt")] = segment.ADT;
         newValues[PIndex("par_heavy")] = segment.HeavyVehicles;
 
-        newValues[PIndex("par_naasra")] = segment.Naasra85th;
+        //Handle Visual Distresses
+        foreach (var distressParamKey in this.distressParams)
+        {
+            newValues[PIndex(distressParamKey)] = segment.GetDistressPercentFromParameterCode(distressParamKey);
+            string tdiKey = distressParamKey + "_tdi";
+            newValues[PIndex(tdiKey)] = this.GetAgeAtDistressInitialisation(segment, distressParamKey);
+        }
+        
         newValues[PIndex("par_rut")] = segment.Rut85th;
-
-        newValues[PIndex("par_pct_flushing")] = segment.PctFlushing;
-        newValues[PIndex("par_pct_scabbing")] = segment.PctScabbing;
-        newValues[PIndex("par_pct_lt_cracks")] = segment.PctLTCracks;
-        newValues[PIndex("par_pct_mesh_cracks")] = segment.PctAlligatorCracks;
-        newValues[PIndex("par_pct_shoving")] = segment.PctShoving;
-        newValues[PIndex("par_pct_potholes")] = segment.PctPotholes;
-       
-        double rutIndex = rutToIndexConversionModel.GetValue(segment.Rut85th);
+        newValues[PIndex("par_naasra")] = segment.Naasra85th;
+        
         double pdi = LAsharedGen2.GetPDI(model, newValues, weightsPDI, pdiCalcMethod);
         double sdi = LAsharedGen2.GetSDI(model, newValues, weightSDI, sdiCalcMethod);
         newValues[PIndex("par_pdi")] = pdi;
-        newValues[PIndex("par_sdi")] = sdi;
-
-        newValues[PIndex("par_maint_per")] = segment.PeriodsSinceMaintenance;
-        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, rutIndex, segment);
+        newValues[PIndex("par_sdi")] = sdi;        
+        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, segment);
 
         return newValues;
     }
@@ -324,7 +328,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         //First get usual initialisation values for all parameters
         newValues = Initialise(rawRow, newValues);
 
-        RoadModSegment segment = RoadModSegment.LoadFromRawData(model, rawRow);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromRawData(model, rawRow);
         //Now adjust only those parameters for initial condition
 
         newValues[PIndex("par_surf_age")] = 0;
@@ -338,28 +342,15 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         newValues[PIndex("par_adt")] = Math.Max(50, segment.ADT * discFactor);
         newValues[PIndex("par_heavy")] = Math.Max(1, segment.HeavyVehicles * discFactor);
 
-
         foreach (string distress in distressParams)
         {
-            if (segment.SurfFunction == "1")
-            {
-                newValues[PIndex(distress)] = 0;
-            }
-            else if (segment.SurfClass == "ac")
-            {
-                newValues[PIndex(distress)] = 0.1;
-            }
-            else
-            {
-                newValues[PIndex(distress)] = 0.5;
-            }
+            newValues[PIndex(distress)] = 0;
         }
-
-        newValues[PIndex("par_sci")] = 0;
-
+                
         double resetRutAssumed = 3.5;
         double naasraMin = model.GetLookupValueNumber("resets", "naasra_reset_min");
         double rutMin = model.GetLookupValueNumber("resets", "rut_reset_min");
+
         if (segment.SurfFunction == "1")
         {
             newValues[PIndex("par_naasra")] = naasraMin;
@@ -380,12 +371,10 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         double sdi = LAsharedGen2.GetSDI(model, newValues, weightSDI, sdiCalcMethod);
         newValues[PIndex("par_pdi")] = pdi;
         newValues[PIndex("par_sdi")] = sdi;
-
-        newValues[PIndex("par_maint_per")] = 999;
-
+        
         double rutIndex = rutToIndexConversionModel.GetValue(segment.Rut85th);
 
-        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, rutIndex, segment);
+        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, segment);
 
         return newValues;
     }
@@ -395,7 +384,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         List<TreatmentStrategy> strategies = new List<TreatmentStrategy>();
         int prevEpoch = iPeriod - 1;
 
-        RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawRow, prevValues);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, prevValues);
         segment.PDI = Math.Round(model.GetParameterValue("par_pdi", prevValues), 2);
         segment.SDI = Math.Round(model.GetParameterValue("par_sdi", prevValues), 2);
 
@@ -485,13 +474,13 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         double[] newValues = new double[model.NParameters];
         Array.Copy(prevValues, newValues, prevValues.Length); // Assume all values stay the same by default
 
-        RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
 
         //Take care of Estimated Structural Life
-        if (segment.RemainingfLife >= 0)
+        if (segment.RemainingStructuralLife >= 0)
         {
-            segment.RemainingfLife = Math.Max(0, segment.RemainingfLife - 1);
-            newValues[PIndex("par_struc_remlife")] = segment.RemainingfLife;
+            segment.RemainingStructuralLife = Math.Max(0, segment.RemainingStructuralLife - 1);
+            newValues[PIndex("par_struc_remlife")] = segment.RemainingStructuralLife;
         }
 
         //Take care of parPavAge, parSurfAge, parSurfLifeAch
@@ -500,19 +489,19 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         //Take care of parADT, parHCV
         newValues = UpdateTrafficParams(segment, rawRow, newValues);
 
-        // Take care of Rut and Naasra BEFORE distresses because distresses are dependent on 
-        // Rut and Naasra
-        newValues = UpdateRutValue(segment, newValues);
-        newValues = UpdateNaasraValue(segment, newValues);
-
         // Take care of: parCracks_gen, parCracks_fat, parShear, parDeform, parPothole, parSurf_def
         foreach (string distress_key in distressParams)
         {
             int index = PIndex(distress_key);
             double currentValue = newValues[index];
-            newValues[index] = GetNextDistressValue(distress_key, currentValue, segment);
+            newValues[index] = GetNextDistressValue(distress_key, segment);
         }
 
+        // Take care of Rut and Naasra BEFORE distresses because distresses are dependent on 
+        // Rut and Naasra
+        newValues = UpdateRutValue(segment, newValues);
+        newValues = UpdateNaasraValue(segment, newValues);
+               
         //Take care of par_pdi and par_sdi
         double rutIndex = rutToIndexConversionModel.GetValue(segment.Rut85th);
         double pdi = LAsharedGen2.GetPDI(model, newValues, weightsPDI, pdiCalcMethod);
@@ -521,14 +510,9 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         newValues[PIndex("par_sdi")] = sdi;
 
         //Update the segment with new values
-        segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
-        newValues[PIndex("par_sci")] = SurfCondIndexModel.Predict(segment).Score;
-
-        int maintIndex = PIndex("par_maint_per");
-        double periodsSinceMaint = newValues[maintIndex];
-        newValues[maintIndex] = periodsSinceMaint + 1;
-
-        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, rutIndex, segment);
+        segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
+        
+        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, segment);
 
         return newValues;
 
@@ -540,7 +524,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         double[] newValues = new double[model.NParameters];
         Array.Copy(prevValues, newValues, prevValues.Length); // Assume all values stay the same by default
 
-        RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
 
         UpdateTrafficParams(segment, rawRow, newValues);
 
@@ -592,13 +576,11 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
                 case "MaintPA":
                     //Only increment surface age and pavement age
                     // For now we assume maintenance does not reset any distresses, but it does 'arrest' it for this year
-                    IncrementPavAgeAndSurfaceAgeAndAchievedLife(segment, newValues);
-                    newValues[PIndex("par_maint_per")] = 0;
+                    IncrementPavAgeAndSurfaceAgeAndAchievedLife(segment, newValues);                    
                     break;
                 case "MaintSU":
                     // For now we assume maintenance does not reset any distresses, but it does 'arrest' it for this year
-                    IncrementPavAgeAndSurfaceAgeAndAchievedLife(segment, newValues);
-                    newValues[PIndex("par_maint_per")] = 0;
+                    IncrementPavAgeAndSurfaceAgeAndAchievedLife(segment, newValues);                    
                     break;
                 default:
                     //should not get here unless treatment is some form of rehab
@@ -615,14 +597,14 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         if (treatment.TreatmentName != "MaintPA" && treatment.TreatmentName != "MaintSU")
         {
             //Run next lines only after the variables required by the Surf Life model are set!
-            segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
+            segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
             double surfLifeExp = surfLifeExp = SurfLifeExpLookup[GetKeyForSurfLifeExpectedLookup(segment)];
             newValues[PIndex("par_surf_exp_life")] = surfLifeExp;
             newValues[PIndex("par_surf_life_ach")] = 0;
         }
 
-        segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
-        newValues[PIndex("par_sci")] = SurfCondIndexModel.Predict(segment).Score;
+        segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
+        
 
         double rutIndex = rutToIndexConversionModel.GetValue(segment.Rut85th);
         double pdi = LAsharedGen2.GetPDI(model, newValues, weightsPDI, pdiCalcMethod);
@@ -630,13 +612,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         newValues[PIndex("par_pdi")] = pdi;
         newValues[PIndex("par_sdi")] = sdi;
 
-        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, rutIndex, segment);
-
-        //TODO: Once reports are all done and locked in: The next should only apply if the treatment is not maintenance!
-        //Update the segment with new values        
-        int maintIndex = PIndex("par_maint_per");
-        double periodsSinceMaint = newValues[maintIndex];
-        newValues[maintIndex] = periodsSinceMaint + 1;
+        newValues[PIndex("par_obj")] = GetUpdatedObjective(pdi, sdi, segment);
 
         return newValues;
 
@@ -644,35 +620,32 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     public override TreatmentInstance GetTriggeredMaintenance(ModelBase model, int iElem, int iPeriod, double[] paramValues, string[] rawData)
     {
-        int maintIndex = PIndex("par_maint_per");
-        double periodsSinceMaint = paramValues[maintIndex];
-        double maintFreq = model.GetLookupValueNumber("maint", "maint_frequency");
-
-        double rander = Rando.NextDouble();
-        if (rander < 0.5)
-        {
-            if (periodsSinceMaint >= maintFreq)
-            {
-                RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawData, paramValues);
-                segment.PDI = Math.Round(model.GetParameterValue("par_pdi", paramValues), 2);
-                segment.SDI = Math.Round(model.GetParameterValue("par_sdi", paramValues), 2);
-                if (segment.PDI > PDI_threshold_maint || segment.SDI > SDI_threshold_maint)
-                {
-                    string maintType = GetMaintenanceTreatmentName(segment);
-                    if (maintType == "none")
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        double areaM2 = model.GetRawData_Number(rawData, "area_m2");
-                        TreatmentInstance treatment = new TreatmentInstance(iElem, maintType, iPeriod, areaM2, false, "Routine maintenance", $"pdi = {segment.PDI}; sdi = {segment.SDI}");
-                        treatment.RankParamSimple = segment.PDI;
-                        return treatment;
-                    }
-                }
-            }
-        }
+        
+        //double rander = Rando.NextDouble();
+        //if (rander < 0.5)
+        //{
+        //    if (periodsSinceMaint >= maintFreq)
+        //    {
+        //        RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawData, paramValues);
+        //        segment.PDI = Math.Round(model.GetParameterValue("par_pdi", paramValues), 2);
+        //        segment.SDI = Math.Round(model.GetParameterValue("par_sdi", paramValues), 2);
+        //        if (segment.PDI > PDI_threshold_maint || segment.SDI > SDI_threshold_maint)
+        //        {
+        //            string maintType = GetMaintenanceTreatmentName(segment);
+        //            if (maintType == "none")
+        //            {
+        //                return null;
+        //            }
+        //            else
+        //            {
+        //                double areaM2 = model.GetRawData_Number(rawData, "area_m2");
+        //                TreatmentInstance treatment = new TreatmentInstance(iElem, maintType, iPeriod, areaM2, false, "Routine maintenance", $"pdi = {segment.PDI}; sdi = {segment.SDI}");
+        //                treatment.RankParamSimple = segment.PDI;
+        //                return treatment;
+        //            }
+        //        }
+        //    }
+        //}
         return null;
     }
 
@@ -680,7 +653,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     #region Trigger Helpers
 
-    private string GetMaintenanceTreatmentName(RoadModSegment segment)
+    private string GetMaintenanceTreatmentName(RoadModSegmentV1 segment)
     {
         Prediction_Binary prediction = MaintRiskModelPA.Predict(segment);
         double threshold = Convert.ToDouble(model.Lookups["maint"]["pa_threshold"]);
@@ -708,7 +681,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         return strat;
     }
 
-    private TreatmentStrategy GetRehabACStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegment segment)
+    private TreatmentStrategy GetRehabACStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
     {
         try
         {
@@ -724,7 +697,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         }
     }
 
-    private TreatmentStrategy GetRehabChipSealStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegment segment)
+    private TreatmentStrategy GetRehabChipSealStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
     {
         try
         {
@@ -742,7 +715,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         }
     }
 
-    private string GetRehabCode(string surfType, RoadModSegment segment)
+    private string GetRehabCode(string surfType, RoadModSegmentV1 segment)
     {
         try
         {
@@ -790,7 +763,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     }
 
 
-    private TreatmentStrategy GetThinACwithRepairStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegment segment)
+    private TreatmentStrategy GetThinACwithRepairStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
     {
         TreatmentStrategy strat = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
         strat.AddFirstTreatment("ThinAC_SR", areaM2, $"pdi = {segment.PDI}; sdi = {segment.SDI}", "none");
@@ -825,7 +798,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         newValues[PIndex("par_surf_thick")] = surfthick;  //ToDo: Surface thickness after AC/Chip Rehab?
 
         //Run next lines only after the variables required by the Surf Life model are set!
-        RoadModSegment segment = RoadModSegment.LoadFromModelData(model, rawRow, newValues);
+        RoadModSegmentV1 segment = RoadModSegmentV1.LoadFromModelData(model, rawRow, newValues);
 
         double surfLifeExp = SurfLifeExpLookup[GetKeyForSurfLifeExpectedLookup(segment)];
         newValues[PIndex("par_surf_exp_life")] = surfLifeExp;
@@ -893,7 +866,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     }
 
-    private double[] GetReset_PreSealRepair(RoadModSegment segment, double[] newValues)
+    private double[] GetReset_PreSealRepair(RoadModSegmentV1 segment, double[] newValues)
     {
         double naasraPercPost = Convert.ToDouble(model.Lookups["resets"]["preseal_naasra_perc_post"]);
         double currentNaasra = newValues[PIndex("par_naasra")];
@@ -919,7 +892,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     }
 
-    private double[] GetReset_ThinACwithStrucRepair(RoadModSegment segment, double[] newValues)
+    private double[] GetReset_ThinACwithStrucRepair(RoadModSegmentV1 segment, double[] newValues)
     {
         double naasraPercPost = Convert.ToDouble(model.Lookups["resets"]["ac_sr_naasra_perc_post"]);
         double currentNaasra = newValues[PIndex("par_naasra")];
@@ -1006,14 +979,14 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     #region General Helpers
 
-    private double GetUpdatedObjective(double pdi, double sdi, double rutIndex, RoadModSegment segment)
+    private double GetUpdatedObjective(double pdi, double sdi, RoadModSegmentV1 segment)
     {
-        double objective = LAsharedGen2.GetObjective_COST354(pdi, sdi, rutIndex, segment.StructuralDeficit, weightsObjective);
+        double objective = LAsharedGen2.GetObjective_COST354(pdi, sdi, segment.StructuralDeficit, weightsObjective);
         if (ScaleObjectiveByLength) { objective = objective * segment.Length; }
         return objective;
     }
 
-    private string GetKeyForSurfLifeExpectedLookup(RoadModSegment segment)
+    private string GetKeyForSurfLifeExpectedLookup(RoadModSegmentV1 segment)
     {
         switch (segment.SurfClass)
         {
@@ -1057,26 +1030,25 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     #region Increment Helpers
 
-    private double[] IncrementPavAgeAndSurfaceAgeAndAchievedLife(RoadModSegment segment, double[] newValues)
+    private double[] IncrementPavAgeAndSurfaceAgeAndAchievedLife(RoadModSegmentV1 segment, double[] newValues)
     {
         segment.PavementAge++;
         segment.SurfAge++;
-        segment.SurfLifeAchievedPercent = 100 * segment.SurfAge / segment.SurfLifeExpected;
-
+        
         newValues[PIndex("par_pav_age")] = segment.PavementAge;
         newValues[PIndex("par_surf_age")] = segment.SurfAge;
         newValues[PIndex("par_surf_life_ach")] = segment.SurfLifeAchievedPercent;
+        newValues[PIndex("par_surf_remain_life")] = segment.SurfLifeRemaining;
         //Note: SurfLifeExpected does not change here. It only change when a reset is applied
 
         return newValues;
     }
 
-    private double[] UpdateTrafficParams(RoadModSegment segment, string[] rawRow, double[] newValues)
+    private double[] UpdateTrafficParams(RoadModSegmentV1 segment, string[] rawRow, double[] newValues)
     {
         //Update ADT with traffic growth               
         segment.ADT = segment.ADT * (1 + TrafficGrowthRate / 100);
-        segment.HeavyVehicles = segment.HeavyVehicles * (1 + TrafficGrowthRate / 100);
-
+        
         newValues[PIndex("par_adt")] = segment.ADT;
         newValues[PIndex("par_heavy")] = segment.HeavyVehicles;
 
@@ -1084,50 +1056,20 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     }
 
-    private double GetNextDistressValue(string distressKey, double currentValue, RoadModSegment obs)
+    private double GetNextDistressValue(string distressParamKey, RoadModSegmentV1 segment)
     {
+        double distressValue = segment.GetDistressPercentFromParameterCode(distressParamKey);
+        
+        //Will we reach the Time to Distress initiation
 
-        //double rand = Rando.NextDouble();
-        Prediction_Binary prediction = PredictionModels[distressKey].Predict(obs);
+        DistressProbabilityModel distressModel = this.DistressModels[distressParamKey];
+        double probability = distressModel.GetProbability(segment);
 
-        string key0 = distressKey + "_k0";
-        string key1 = distressKey + "_k3";
-
-        //double threshold = 0;
-        if (distressKey == "par_cracks_struc")
-        {
-            int kk = 9;
-        }
-
-        if (currentValue == 0)
-        {
-            //No distress yet. Stochastically initialise or not depending on scaled probability
-            double initialValue = 0.001;   // Initial distress state assigned after initialisation
-            double scaleFact_Initialise = model.GetLookupValueNumber("increments", key0);
-            double taci = scaleFact_Initialise * (1 - prediction.Probability);
-            if (obs.SurfAge >= taci)
-            {
-                return initialValue;  //Distress initialised - return initial distress assigned
-            }
-            else
-            {
-                return 0;  //remains zero (no distress)
-            }
-        }
-        else
-        {
-            // Already some distress. Increase distress state based on probability and 
-            // calibrated S-curve growth
-            double scaleFact_Growth = model.GetLookupValueNumber("increments", key1);
-            PieceWiseLinearModel progressionModel = DistressProgressionModels[distressKey];
-            double incremFact = progressionModel.GetValue(currentValue);
-            double increment = scaleFact_Growth * incremFact * prediction.Probability;
-            return currentValue + increment;
-        }
+        return 1;
     }
 
-    private double[] UpdateRutValue(RoadModSegment segment, double[] newValues)
-    {
+    private double[] UpdateRutValue(RoadModSegmentV1 segment, double[] newValues)
+    {        
         Prediction_Binary prediction = RutRiskModel.Predict(segment);
         double scaleFact = model.GetLookupValueNumber("increments", "rut_increm_k0");
 
@@ -1143,11 +1085,11 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         return newValues;
     }
 
-    private double[] UpdateNaasraValue(RoadModSegment segment, double[] newValues)
-    {
+    private double[] UpdateNaasraValue(RoadModSegmentV1 segment, double[] newValues)
+    {                
         Prediction_Binary prediction = NaasraRiskModel.Predict(segment);
         double scaleFact = model.GetLookupValueNumber("increments", "naasra_increm_k0");
-
+        
         int index = PIndex("par_naasra");
         double naasraValue = newValues[index];
         //double rand = Rando.NextDouble();
@@ -1160,6 +1102,21 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         return newValues;
     }
 
+    private double GetAgeAtDistressInitialisation(RoadModSegmentV1 segment, string distressParamKey)
+    {
+        double distressValue = segment.GetDistressPercentFromParameterCode(distressParamKey);
+
+        if (distressValue > 0) { return 0; }  //Already initialised
+        
+        //Not yet initialised. Estimate the time to distress initialisation based on Surface Expected Life
+        //and the probability of observing the distress on this segment
+        DistressProbabilityModel distressModel = this.DistressModels[distressParamKey];
+        double probability = distressModel.GetProbability(segment);
+        double minAaDIAllowed = this.model.GetLookupValueNumber("initialisation", distressParamKey + "_min");
+        double AaDI = segment.SurfLifeExpected * (1 - probability);
+        return Math.Max(minAaDIAllowed, AaDI);    
+    }
+        
     #endregion
 
 

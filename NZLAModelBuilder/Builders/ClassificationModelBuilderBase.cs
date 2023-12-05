@@ -16,10 +16,10 @@ using Microsoft.ML.Data;
 using MLModelClasses.DomainClasses;
 using NPOI.SS.Formula.Functions;
 using static NPOI.HSSF.Util.HSSFColor;
-using MLClasses;
 using NPOI.SS.UserModel;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
+using MLModelClasses.MLClasses;
 
 namespace NZLAModelBuilder.Builders;
 

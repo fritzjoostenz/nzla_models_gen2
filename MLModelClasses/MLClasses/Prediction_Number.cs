@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLClasses;
+namespace MLModelClasses.MLClasses;
 public class Prediction_Number
 {
 
