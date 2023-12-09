@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\jcass_main\JCass_Core\JCass_Core.csproj" />
     <ProjectReference Include="..\..\jcass_main\JCass_Data\JCass_Data.csproj" />
     <ProjectReference Include="..\MLModelClasses\MLModelClasses.csproj" />
   </ItemGroup>

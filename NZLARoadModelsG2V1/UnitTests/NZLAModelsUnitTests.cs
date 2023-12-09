@@ -14,6 +14,10 @@ public class NZLAModelsUnitTests
     jcDataSet coefficients;
     jcDataSet testData;
 
+    jcDataSet coefficients_rutrough;
+    jcDataSet testData_rutrough;
+
+
     string dataFolder = @"C:\Users\fritz\Juno Services Dropbox\Local_Authorities\aa_gen2_models\model_development\data\";
 
     public NZLAModelsUnitTests()
@@ -22,6 +26,12 @@ public class NZLAModelsUnitTests
         string testDataFile = Path.Combine(dataFolder, "logistic_regression_test_data.csv");
         this.coefficients = JCass_Data.Utils.CSVHelper.ReadDataFromCsvFile(coeffsFile, "distress");
         this.testData = JCass_Data.Utils.CSVHelper.ReadDataFromCsvFile(testDataFile);
+
+
+        coeffsFile = Path.Combine(dataFolder, "logistic_regression_rut_rough_coeffs.csv");
+        testDataFile = Path.Combine(dataFolder, "logistic_regression_rut_rough_test_data.csv");
+        this.coefficients_rutrough = JCass_Data.Utils.CSVHelper.ReadDataFromCsvFile(coeffsFile, "distress");
+        this.testData_rutrough = JCass_Data.Utils.CSVHelper.ReadDataFromCsvFile(testDataFile);
     }
 
     [TestMethod]
@@ -114,11 +124,42 @@ public class NZLAModelsUnitTests
 
     }
 
+    [TestMethod]
+    public void RuttingProbabilityTest()
+    {
+        DistressProbabilityModel model = new DistressProbabilityModel(this.coefficients_rutrough.Row("rutting"));
+        var testCase = this.GetTestCaseFromTestData(0, true);
+        Assert.AreEqual(testCase.Item2, Math.Round(model.GetProbability(testCase.Item1), 5));
 
-    private Tuple<RoadModSegmentV1, double> GetTestCaseFromTestData(int iRow)
-    {       
-        RoadModSegmentV1 seg = new RoadModSegmentV1();
+        testCase = this.GetTestCaseFromTestData(1, true);
+        Assert.AreEqual(testCase.Item2, Math.Round(model.GetProbability(testCase.Item1), 5));
+
+        testCase = this.GetTestCaseFromTestData(2, true);
+        Assert.AreEqual(testCase.Item2, Math.Round(model.GetProbability(testCase.Item1), 5));
+
+    }
+
+    [TestMethod]
+    public void RoughnessProbabilityTest()
+    {
+        DistressProbabilityModel model = new DistressProbabilityModel(this.coefficients_rutrough.Row("naasra_85"));
+        var testCase = this.GetTestCaseFromTestData(3, true);
+        Assert.AreEqual(Math.Round(testCase.Item2,3), Math.Round(model.GetProbability(testCase.Item1), 3));
+
+        testCase = this.GetTestCaseFromTestData(4, true);
+        Assert.AreEqual(Math.Round(testCase.Item2, 3), Math.Round(model.GetProbability(testCase.Item1), 3));
+
+        testCase = this.GetTestCaseFromTestData(5, true);
+        Assert.AreEqual(Math.Round(testCase.Item2, 3), Math.Round(model.GetProbability(testCase.Item1), 3));
+
+    }
+
+
+    private Tuple<RoadModSegmentV1, double> GetTestCaseFromTestData(int iRow, bool useRutRoughness = false)
+    {
+        RoadModSegmentV1 seg = new RoadModSegmentV1(1, null, null);
         Dictionary<string, object> row = this.testData.Row(iRow);
+        if (useRutRoughness) { row = this.testData_rutrough.Row(iRow); }
         seg.SurfClass = Convert.ToString(row["surf_class"]);
         seg.SurfThickness = Convert.ToSingle(row["surf_thick"]); 
         seg.UrbanRural = Convert.ToString(row["urban_rural"]);
@@ -126,12 +167,16 @@ public class NZLAModelsUnitTests
         seg.HeavyPercent = Convert.ToSingle(row["heavy_perc"]);
         seg.PavementAge = Convert.ToSingle(row["pave_age"]);
 
+        
         seg.PctFlushing = Convert.ToSingle(row["pct_flush"]);
         seg.PctScabbing = Convert.ToSingle(row["pct_scabb"]);
-        seg.PctLTCracks = Convert.ToSingle(row["pct_lt_crax"]);
-        seg.PctAlligatorCracks = Convert.ToSingle(row["pct_allig"]);
+        seg.PctLTcracks = Convert.ToSingle(row["pct_lt_crax"]);
+        seg.PctMeshCracks = Convert.ToSingle(row["pct_allig"]);
         seg.PctShoving = Convert.ToSingle(row["pct_shove"]);
         seg.PctPotholes = Convert.ToSingle(row["pct_poth"]);
+
+        if (row.ContainsKey("rutting")) { seg.Rut85th = Convert.ToSingle(row["rutting"]); }
+        if (row.ContainsKey("naasra_85")) { seg.Naasra85th = Convert.ToSingle(row["naasra_85"]); } 
 
         return new Tuple<RoadModSegmentV1, double>(seg, Math.Round(Convert.ToDouble(row["proba"]),5));
 

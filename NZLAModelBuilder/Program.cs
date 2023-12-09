@@ -10,11 +10,11 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 
 
-string workFolder = @"C:\Users\fritz\Juno Services Dropbox\Local_Authorities\aa_gen2_models\jcass\";
-string in_file = workFolder + "input_data_imputed.csv";
-List<RoadSegmentBase> segments = RoadSegmentLoader.LoadRoadSegmentsFromCsv(in_file);
-MLModelClasses.Testing.GetPredictions tester = new MLModelClasses.Testing.GetPredictions();
-tester.LoadModels(workFolder + @"ML_Models\");
+//string workFolder = @"C:\Users\fritz\Juno Services Dropbox\Local_Authorities\aa_gen2_models\jcass\";
+//string in_file = workFolder + "input_data_imputed.csv";
+//List<RoadSegmentBase> segments = RoadSegmentLoader.LoadRoadSegmentsFromCsv(in_file);
+//MLModelClasses.Testing.GetPredictions tester = new MLModelClasses.Testing.GetPredictions();
+//tester.LoadModels(workFolder + @"ML_Models\");
 
 //tester.PredictAndExport(segments, workFolder + "ml_predictions.csv");
 
@@ -28,7 +28,7 @@ tester.LoadModels(workFolder + @"ML_Models\");
 //            "pct_allig",
 //            "pct_shove",
 //            "pct_poth"
-tester.GetProbabilityVsAge(segments, workFolder + "ml_predictions.csv");
+//tester.GetProbabilityVsAge(segments, workFolder + "ml_predictions.csv");
 
 return;
 

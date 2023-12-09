@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
+using JCass_Core.Engineering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,15 @@ public class DistressProbabilityModel
     private readonly double coeffHeavyPercent;
     private readonly double coeffPavementAge;
     
-    private readonly double coeffFlushing;
-    private readonly double coeffScabbing;
-    private readonly double coeffLTCracks;    
-    private readonly double coeffAlligatorCracks;
-    private readonly double coeffShoving;
-    private readonly double coeffPotholes;
+    private readonly double coeffFlushing = 0;
+    private readonly double coeffScabbing = 0;
+    private readonly double coeffLTCracks = 0;    
+    private readonly double coeffAlligatorCracks = 0;
+    private readonly double coeffShoving = 0;
+    private readonly double coeffPotholes = 0;
 
-
+    private readonly double coeffRutting = 0;
+    private readonly double coeffRoughness = 0;
 
     public DistressProbabilityModel(Dictionary<string, object> coefficients)
     {
@@ -43,6 +45,9 @@ public class DistressProbabilityModel
         this.coeffAlligatorCracks = Convert.ToDouble(coefficients["pct_allig"]);
         this.coeffShoving = Convert.ToDouble(coefficients["pct_shove"]);
         this.coeffPotholes = Convert.ToDouble(coefficients["pct_poth"]);
+
+        if (coefficients.ContainsKey("rutting")) { this.coeffRutting = Convert.ToDouble(coefficients["rutting"]); }
+        if (coefficients.ContainsKey("naasra_85")) { this.coeffRoughness = Convert.ToDouble(coefficients["naasra_85"]); }
     }
 
     public double GetProbability(RoadModSegmentV1 segment)
@@ -55,16 +60,71 @@ public class DistressProbabilityModel
         logit += this.coeffHeavyPercent * segment.HeavyPercent;
         logit += this.coeffPavementAge * segment.PavementAge;
 
+        //"par_pct_flushing", "", "", "", "", "par_pct_potholes"
         logit += this.coeffScabbing * segment.PctScabbing;
-        logit += this.coeffLTCracks * segment.PctLTCracks;
-        logit += this.coeffAlligatorCracks * segment.PctAlligatorCracks;
+        logit += this.coeffLTCracks * segment.PctLTcracks;
+        logit += this.coeffAlligatorCracks * segment.PctMeshCracks;
         logit += this.coeffShoving * segment.PctShoving;
-        
+        logit += this.coeffPotholes * segment.PctPotholes;
+        logit += this.coeffRutting * segment.Rut85th;
+        logit += this.coeffRoughness * segment.Naasra85th;
         //convert logit to a probability
         double proba = Math.Exp(logit) / (1 + Math.Exp(logit));
         return proba;
     }
 
+}
+
+
+public class DistressProgressionModel
+{
+    
+    private readonly string? DistressCode;
+    private readonly DistressProbabilityModel probabilityModel;    
+    private readonly double T100Min;
+    private readonly double T100Max;    
+    private readonly double InitValMin;
+    private readonly double InitValMax;
+    
+    public double InitValueExpected;
+    public double AADI;
+    public double T100;
+
+    public DistressProgressionModel(string distressCode, DistressProbabilityModel probModel, string setupString)
+    {
+        this.DistressCode = distressCode;
+        this.probabilityModel = probModel;
+
+        List<string> values = JCass_Core.Utils.HelperMethods.SplitStringToList(setupString, "|");
+        if (values.Count != 5) { throw new Exception($"Incorrect setup string for S-progression model for '{distressCode}'. Expected 5 values but got {values.Count}"); }
+
+        this.InitValueExpected = Convert.ToDouble(values[0]);
+        this.InitValMin = Convert.ToDouble(values[1]); ;
+        this.InitValMax = Convert.ToDouble(values[2]); ;
+        this.T100Min = Convert.ToDouble(values[3]); ;
+        this.T100Max = Convert.ToDouble(values[4]); ;
+        
+        if (this.InitValMax <= this.InitValMin) { throw new Exception($"Initial value maximum must be greater than initial value minimum. Check setup string for S-progression model for '{distressCode}'"); }
+        if (this.T100Max <= this.T100Min) { throw new Exception($"T100 maximum must be greater than T100 minimum. Check setup string for S-progression model for '{distressCode}'"); }
+
+
+    }
+
+    public void Initialise(RoadModSegmentV1 segment, double observedValue)
+    {
+        double probability = this.probabilityModel.GetProbability(segment);
+        this.AADI = segment.SurfLifeExpected * (1 - probability);
+        this.T100 = this.T100Max * (1 - probability);        
+        SShapedModelHelper.CalibrateFactors(segment.SurfAge, observedValue, this.T100Min, this.T100Max, 1, segment.SurfLifeExpected, this.InitValMin, this.InitValMax, ref this.T100, ref this.AADI, ref this.InitValueExpected );
+    }
+
+    public double GetIncrement(double currentAge)
+    {        
+        if (currentAge < this.AADI) { return 0; }                
+        double periodsSinceInitialisation = currentAge - this.AADI;
+        double increm = SShapedModelHelper.GetSCurveProgressionIncrement(this.T100, periodsSinceInitialisation);
+        return increm;
+    }
 
 
 }
