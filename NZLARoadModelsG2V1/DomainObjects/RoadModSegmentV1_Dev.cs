@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace NZLARoadModelsG2V1.DomainObjects;
 
-public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
+public class RoadModSegmentV1_Dev: JCass_ModelCore.Customiser.ModelElementBase
 {
 
     #region Variables
@@ -43,53 +43,15 @@ public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
 
     #region Properties - Data/Parameter Bound 
 
-    [ModelElement("length", "none")]
-    public double Length { get; set; }
-
-    [ModelElement("area_m2", "none")]
-    public double AreaM2 { get; set; }
-
-    [ModelElement("area_name", "none")]
-    public string AreaName { get; set; }
-
-    [ModelElement("urban_rural", "none")]
-    public string UrbanRural { get; set; }
     
-    [ModelElement("is_rehab_route", "par_is_rehab_route")]
-    public bool IsRehabRoute { get; set; }
-
-    [ModelElement("is_roundabout", "none")]
-    public bool IsRoundabout { get; set; }
     
-    [ModelElement("pave_use", "none")]
-    public string PavementUse { get; set; }
-
-    [ModelElement("can_treat", "none")]
-    public bool CanTreatCustom { get; set; }
-
-    [ModelElement("onrc", "none")]
-    public string ONRC { get; set; }
            
     
     #endregion
 
     #region Properties - Traffic
 
-    [ModelElement("adt", "par_adt")]
-    public float ADT { get; set; }
-
-    [ModelElement("heavy_perc", "none")]
-    public float HeavyPercent { get; set; }
-
-    [ModelElement("no_of_bus_routes", "none")]
-    public float BusRoutes { get; set; }
-
-    [ModelElement("none", "par_heavy")]
-    public float HeavyVehicles
-    {
-        get { return this.ADT * this.HeavyPercent / 100; }
-    }
-
+   
     #endregion
 
     #region Properties - Surfacing
@@ -259,7 +221,7 @@ public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
 
     #region Constructor and Getters
 
-    internal RoadModSegmentV1(int elemIndex, ModelBase modelBase, ConstantsAndSubModels constants):base(elemIndex, modelBase)
+    internal RoadModSegmentV1_Dev(int elemIndex, ModelBase modelBase, ConstantsAndSubModels constants):base(elemIndex, modelBase)
     {
         this.SetupInfo = constants;        
     }
@@ -278,12 +240,12 @@ public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
         this.Rut85th = GetInitialRut();
         this.Naasra85th = GetInitialNaasra();
 
-        this.FlushingProgressionModel = this.GetDistressProgressionModel("par_pct_flushing");
-        this.ScabbingProgressionModel = this.GetDistressProgressionModel("par_pct_scabbing");
-        this.LTcracksProgressionModel = this.GetDistressProgressionModel("par_pct_lt_cracks");
-        this.MeshCracksProgressionModel = this.GetDistressProgressionModel("par_pct_mesh_cracks");
-        this.ShovingProgressionModel = this.GetDistressProgressionModel("par_pct_shoving");
-        this.PotholeProgressionModel = this.GetDistressProgressionModel("par_pct_potholes");
+        //this.FlushingProgressionModel = this.GetDistressProgressionModel("par_pct_flushing");
+        //this.ScabbingProgressionModel = this.GetDistressProgressionModel("par_pct_scabbing");
+        //this.LTcracksProgressionModel = this.GetDistressProgressionModel("par_pct_lt_cracks");
+        //this.MeshCracksProgressionModel = this.GetDistressProgressionModel("par_pct_mesh_cracks");
+        //this.ShovingProgressionModel = this.GetDistressProgressionModel("par_pct_shoving");
+        //this.PotholeProgressionModel = this.GetDistressProgressionModel("par_pct_potholes");
 
         this.ACisOK = Convert.ToDouble(this.NextSurfacing == "ac"); //Assume like for like initially. ToDO: add custom decision field in raw data
         
@@ -592,27 +554,27 @@ public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
         return false;
     }
 
-    public bool CanConsiderRehab(double minLengthAllowed, double maxLengthAllowed, double pdiThreshold, double msdRemLifeMaxThreshold)
-    {
-        if (IsRehabRoute)
-        {
-            //First check for disqualifying conditions
-            if (Length < minLengthAllowed) { return false; }
-            if (Length > maxLengthAllowed) { return false; }
-            if (PDI < pdiThreshold) { return false; }
+    //public bool CanConsiderRehab(double minLengthAllowed, double maxLengthAllowed, double pdiThreshold, double msdRemLifeMaxThreshold)
+    //{
+    //    if (IsRehabRoute)
+    //    {
+    //        //First check for disqualifying conditions
+    //        if (Length < minLengthAllowed) { return false; }
+    //        if (Length > maxLengthAllowed) { return false; }
+    //        if (PDI < pdiThreshold) { return false; }
 
-            //Now check for qualifying conditions based on MSD remaining life - only do rehab if MSD has data (value NOT minus 1) and
-            // and the remaining life is below threshold
-            if (RemainingStructuralLife < 0) { return true; }  //Do not know remaining life (no MSD or FWD)
+    //        //Now check for qualifying conditions based on MSD remaining life - only do rehab if MSD has data (value NOT minus 1) and
+    //        // and the remaining life is below threshold
+    //        if (RemainingStructuralLife < 0) { return true; }  //Do not know remaining life (no MSD or FWD)
 
-            if (RemainingStructuralLife <= msdRemLifeMaxThreshold) { return true; }
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //        if (RemainingStructuralLife <= msdRemLifeMaxThreshold) { return true; }
+    //        return false;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
     public bool ConsiderAsphaltTreatment(ModelBase model)
     {
@@ -733,14 +695,7 @@ public class RoadModSegmentV1: JCass_ModelCore.Customiser.ModelElementBase
         }     
     }
 
-    private DistressProgressionModel GetDistressProgressionModel(string parameterCode)
-    {
-        string setupString = this._model.GetLookupValueText("distress_progression", parameterCode);
-        DistressProgressionModel progModel = new DistressProgressionModel(parameterCode, this.SetupInfo.DistressProbabilityModels[parameterCode], setupString);
-        progModel.Initialise(this, (double)this.GetParameterValue(parameterCode));
-        return progModel;   
-    }
-
+    
     #endregion
 
     #region Index/Objective Calculation

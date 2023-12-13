@@ -49,8 +49,10 @@ C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\r
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Core.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Data.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Functions.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\SpreadsheetGear2017.Core.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Core.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Functions.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Data.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\obj\Debug\net7.0\ExpressionTester.csproj.AssemblyReference.cache
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\obj\Debug\net7.0\ExpressionTester.GeneratedMSBuildEditorConfig.editorconfig

@@ -25,6 +25,8 @@ using NZLARoadModelsG2V1.DomainObjects;
 using MLModelClasses.MLClasses;
 using JCass_Data.Objects;
 using JCass_Data.Utils;
+using JCass_Functions;
+using JCass_Functions.Engineering;
 
 namespace JCass_CustomiserSample.Gen2;
 
@@ -39,10 +41,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     private MLContext mlContext;
    
-    PieceWiseLinearModelGeneric rutIncremModel;
-    PieceWiseLinearModelGeneric naasraIncremModel;
-    PieceWiseLinearModelGeneric rutToIndexConversionModel;
-       
+          
     private ConstantsAndSubModels SetupInfo;
 
     private Dictionary<int, RoadModSegmentV1> Segments;
@@ -50,7 +49,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     #endregion
 
     #region Lookup Constants
-      
+
     private Dictionary<string, PieceWiseLinearModelGeneric> DistressProgressionModels;
 
     #endregion
@@ -70,19 +69,19 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
                 
         this.SetupInfo = new ConstantsAndSubModels(model);
                 
-        double rutCentre = model.GetLookupValueNumber("increments", "rut_increm_central_tendency");
-        rutIncremModel = Utils.GetSkewedDistribModel_A(rutCentre);
+        //double rutCentre = model.GetLookupValueNumber("increments", "rut_increm_central_tendency");
+        //rutIncremModel = JCass_Functions.Engineering.Utilities.GetSkewedDistribModel_A(rutCentre);
 
-        double naasraCentre = model.GetLookupValueNumber("increments", "naasra_increm_central_tendency");
-        naasraIncremModel = Utils.GetSkewedDistribModel_A(naasraCentre);
+        //double naasraCentre = model.GetLookupValueNumber("increments", "naasra_increm_central_tendency");
+        //naasraIncremModel = JCass_Functions.Engineering.Utilities.GetSkewedDistribModel_A(naasraCentre);
 
         
 
-        // Piece wise linear model to convert absolute rut depth (in mm) to a distres index scale 0 to 4
-        // The X-values are the percentiles same as was used to calculate index values for distresses
-        List<double> x_rut = new List<double> { 3.65, 4.05, 5, 6.55, 7.85, 9.65, 14, 19.688, 39.5 };
-        List<double> y_index = new List<double> { 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4 };
-        rutToIndexConversionModel = new PieceWiseLinearModelGeneric(x_rut, y_index, false);
+        //// Piece wise linear model to convert absolute rut depth (in mm) to a distres index scale 0 to 4
+        //// The X-values are the percentiles same as was used to calculate index values for distresses
+        //List<double> x_rut = new List<double> { 3.65, 4.05, 5, 6.55, 7.85, 9.65, 14, 19.688, 39.5 };
+        //List<double> y_index = new List<double> { 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4 };
+        //rutToIndexConversionModel = new PieceWiseLinearModelGeneric(x_rut, y_index, false);
 
         
 
@@ -95,13 +94,17 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     #region Interface Implementation
 
     public override double[] Initialise(int iElemIndex, string[] rawRow)
-    {
-        RoadModSegmentV1 segment = new RoadModSegmentV1(iElemIndex, this.model, SetupInfo);
-        segment.InitialiseFromRawData(rawRow);
-        this.Segments.Add(iElemIndex, segment); 
-        double[] newValues = segment.GetParameterValuesArray();       
+    {        
+        Dictionary<string, object> values = this.model.GetParametersForJFunctions(iElemIndex, rawRow, null, 0);
+                
+        model.FunctionSet.Evaluate(values, "initialise");
+
+        double[] newValues = this.model.GetModelParameterValuesFromJFunctionResultSet(new double[this.model.NParameters], values);
+
         return newValues;
     }
+
+    
 
     public override double[] InitialiseForCalibration(int iElemIndex, string[] rawRow)
     {
@@ -171,10 +174,14 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     }
 
     public override double[] Increment(int iElemIndex, string[] rawRow, double[] prevValues)
-    {        
-        RoadModSegmentV1 segment = this.Segments[iElemIndex];
-        segment.Increment();
-        return segment.GetParameterValuesArray();
+    {
+        Dictionary<string, object> values = this.model.GetParametersForJFunctions(iElemIndex, rawRow, prevValues, 0);
+
+        model.FunctionSet.Evaluate(values, "increment");
+
+        double[] newValues = this.model.GetModelParameterValuesFromJFunctionResultSet(new double[this.model.NParameters], values);
+
+        return newValues;
 
     }
 

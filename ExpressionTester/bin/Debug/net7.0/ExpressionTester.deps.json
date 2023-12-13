@@ -9,6 +9,7 @@
       "ExpressionTester/1.0.0": {
         "dependencies": {
           "JCass_Core": "1.0.0",
+          "JCass_Functions": "1.0.0",
           "SpreadsheetGear2017.Core": "8.0.63.102"
         },
         "runtime": {
@@ -628,6 +629,14 @@
           "JCass_Data.dll": {}
         }
       },
+      "JCass_Functions/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "JCass_Functions.dll": {}
+        }
+      },
       "SpreadsheetGear2017.Core/8.0.63.102": {
         "runtime": {
           "SpreadsheetGear2017.Core.dll": {
@@ -1105,6 +1114,11 @@
       "sha512": ""
     },
     "JCass_Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "JCass_Functions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

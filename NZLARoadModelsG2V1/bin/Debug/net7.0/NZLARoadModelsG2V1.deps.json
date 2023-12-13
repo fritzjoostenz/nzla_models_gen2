@@ -2162,12 +2162,21 @@
           "JCass_DataAccess.dll": {}
         }
       },
+      "JCass_Functions/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "JCass_Functions.dll": {}
+        }
+      },
       "JCass_ModelCore/1.0.0": {
         "dependencies": {
           "CSVFile": "3.1.1",
           "JCass_Core": "1.0.0",
           "JCass_Data": "1.0.0",
           "JCass_DataAccess": "1.0.0",
+          "JCass_Functions": "1.0.0",
           "Microsoft.ML": "3.0.0",
           "Microsoft.ML.FastTree": "3.0.0",
           "Microsoft.ML.LightGbm": "3.0.0"
@@ -3433,6 +3442,11 @@
       "sha512": ""
     },
     "JCass_DataAccess/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "JCass_Functions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

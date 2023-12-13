@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\jcass_main\JCass_Core\JCass_Core.csproj" />
+    <ProjectReference Include="..\..\jcass_main\JCass_Functions\JCass_Functions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

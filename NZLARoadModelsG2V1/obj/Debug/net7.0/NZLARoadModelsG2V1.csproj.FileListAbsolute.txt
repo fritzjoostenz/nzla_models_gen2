@@ -200,6 +200,7 @@ C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Core.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Data.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_DataAccess.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Functions.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_ModelCore.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\MLModelClasses.dll
@@ -208,6 +209,7 @@ C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Core.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Data.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_DataAccess.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Functions.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0\NZLARoadModelsG2V1.csproj.AssemblyReference.cache
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0\NZLARoadModelsG2V1.GeneratedMSBuildEditorConfig.editorconfig

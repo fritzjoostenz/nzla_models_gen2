@@ -1083,6 +1083,19 @@
         "runtime": {
           "bin/placeholder/JCass_Data.dll": {}
         }
+      },
+      "JCass_Functions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "bin/placeholder/JCass_Functions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/JCass_Functions.dll": {}
+        }
       }
     }
   },
@@ -3397,11 +3410,17 @@
       "type": "project",
       "path": "../../jcass_main/JCass_Data/JCass_Data.csproj",
       "msbuildProject": "../../jcass_main/JCass_Data/JCass_Data.csproj"
+    },
+    "JCass_Functions/1.0.0": {
+      "type": "project",
+      "path": "../../jcass_main/JCass_Functions/JCass_Functions.csproj",
+      "msbuildProject": "../../jcass_main/JCass_Functions/JCass_Functions.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "JCass_Core >= 1.0.0"
+      "JCass_Core >= 1.0.0",
+      "JCass_Functions >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3439,6 +3458,9 @@
           "projectReferences": {
             "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Core\\JCass_Core.csproj": {
               "projectPath": "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Core\\JCass_Core.csproj"
+            },
+            "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Functions\\JCass_Functions.csproj": {
+              "projectPath": "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Functions\\JCass_Functions.csproj"
             }
           }
         }

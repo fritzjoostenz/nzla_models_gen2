@@ -1,8 +1,10 @@
 ﻿using DocumentFormat.OpenXml.Presentation;
 using ExpressionTester.TestHarness;
-using JCass_Core.Expressions;
 using JCass_Data.Objects;
 using JCass_Data.Utils;
+using JCass_Functions;
+using JCass_Functions.BaseClasses;
+using JCass_Functions.Equalities;
 using NPOI.OpenXmlFormats.Shared;
 using NPOI.SS.Formula.Functions;
 using System;
@@ -20,11 +22,12 @@ public class ExpressionTester
     
     private Dictionary<string, object> values;
 
-    private ExpressionSet ExpressionSet;
+    private FunctionSet ExpressionSet;
     
 
     public ExpressionTester(string setupFile)
     {
+        Console.ResetColor();
         Console.WriteLine($"Reading expressions testing data from '{setupFile}'");
             
         this.DataMan = new ExpressionTestData(setupFile);
@@ -33,62 +36,79 @@ public class ExpressionTester
         foreach (var newPair in this.DataMan.RawData) values.Add(newPair.Key, newPair.Value);
         foreach (var newPair in this.DataMan.ParameterData) values.Add(newPair.Key, newPair.Value);
                 
-        this.ExpressionSet = new ExpressionSet();
-        this.ExpressionSet.Setup(this.DataMan.ExpressionsData);
-        Console.WriteLine($"Finished setting up. {this.ExpressionSet.Expressions.Count} expressions loaded");
+        this.ExpressionSet = new FunctionSet();
+        this.ExpressionSet.Setup(this.DataMan.ExpressionsData.GetAsListOfDictionaries(), this.DataMan.Lookups);
+        Console.WriteLine($"Finished setting up. {this.ExpressionSet.Functions.Count} expressions loaded");
     }
 
     public void RunTest()
-    {
-        this.ExpressionSet.Calibrate(this.values);
-        this.ExpressionSet.Evaluate(this.values);
-
+    {                
         var col = Console.ForegroundColor;
         Console.WriteLine();
-        Console.WriteLine("Expression test results");
+        Console.WriteLine("Function test results");
         Console.WriteLine("----------------------------------------------------------------------------------------------");
         Console.WriteLine();
 
-        foreach (string key in this.ExpressionSet.Expressions.Keys)
+        foreach (string key in this.ExpressionSet.Functions.Keys)
         {
-            
+            IFunction function = this.ExpressionSet.Functions[key];
+            object value = this.ExpressionSet.Functions[key].Evaluate(values);
+            this.values[key] = value;
 
-            object expected = this.ExpressionSet.Expressions[key].ExpectedTestValue;
-            object value = this.values[key];
-
-            if(HelperMethods.IsNumeric(expected.ToString()) && HelperMethods.IsNumeric(value.ToString()))
+            if (key == "f_flush_probability")
             {
-                expected = Convert.ToDouble(expected);
-                value = Convert.ToDouble(value);
+                int kk = 9;
+            }
 
-                if (Math.Round((double)expected,2) !=  Math.Round((double)value,2))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{key} = {this.values[key]} (failed - expected: {expected})");
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"{key} = {this.values[key]} (ok)");
-                }
+             object expected = this.ExpressionSet.Functions[key].ExpectedTestValue;
 
+            if (!string.IsNullOrEmpty(function.AssignToKey))
+            {
+                values[function.AssignToKey] = value;
+            }
+
+            if (expected is null)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"{key} = {this.values[key]} (no test value found)");
             }
             else
             {
-                if (!String.Equals(value.ToString(), expected.ToString()))
+                if (HelperMethods.IsNumeric(expected.ToString()) && HelperMethods.IsNumeric(value.ToString()))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{key} = {this.values[key]} (failed - expected: {expected})");
+                    expected = Convert.ToDouble(expected);
+                    value = Convert.ToDouble(value);
+
+                    if (Math.Round((double)expected, 2) != Math.Round((double)value, 2))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"{key} = {this.values[key]} (failed - expected: {expected})");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{key} = {this.values[key]} (ok)");
+                    }
+
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"{key} = {this.values[key]} (ok)");
+                    if (!String.Equals(value.ToString(), expected.ToString()))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"{key} = {this.values[key]} (failed - expected: {expected})");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{key} = {this.values[key]} (ok)");
+                    }
                 }
-            }                        
+            }                                
         }
 
-        Console.ForegroundColor = col;
+        Console.ResetColor();
+        Console.ForegroundColor = col;        
         Console.WriteLine();
         Console.WriteLine("----------------------------------------------------------------------------------------------");
         Console.WriteLine();
