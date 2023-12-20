@@ -3430,9 +3430,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\ExpressionTester.csproj",
-      "projectName": "ExpressionTester",
-      "projectPath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\ExpressionTester.csproj",
+      "projectUniqueName": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\JFunctionTester.csproj",
+      "projectName": "JFunctionTester",
+      "projectPath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\JFunctionTester.csproj",
       "packagesPath": "C:\\Users\\fritz\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\obj\\",
       "projectStyle": "PackageReference",

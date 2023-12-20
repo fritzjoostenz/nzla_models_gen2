@@ -3507,6 +3507,16 @@
           "bin/placeholder/JCass_DataAccess.dll": {}
         }
       },
+      "JCass_Economics/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/JCass_Economics.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/JCass_Economics.dll": {}
+        }
+      },
       "JCass_Functions/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -3528,6 +3538,7 @@
           "JCass_Core": "1.0.0",
           "JCass_Data": "1.0.0",
           "JCass_DataAccess": "1.0.0",
+          "JCass_Economics": "1.0.0",
           "JCass_Functions": "1.0.0",
           "Microsoft.ML": "2.0.1",
           "Microsoft.ML.FastTree": "2.0.1",
@@ -10014,6 +10025,11 @@
       "type": "project",
       "path": "../../jcass_web_access/JCass_DataAccess/JCass_DataAccess.csproj",
       "msbuildProject": "../../jcass_web_access/JCass_DataAccess/JCass_DataAccess.csproj"
+    },
+    "JCass_Economics/1.0.0": {
+      "type": "project",
+      "path": "../../jcass_main/JCass_Economics/JCass_Economics.csproj",
+      "msbuildProject": "../../jcass_main/JCass_Economics/JCass_Economics.csproj"
     },
     "JCass_Functions/1.0.0": {
       "type": "project",

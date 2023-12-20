@@ -50,7 +50,6 @@ C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\r
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Core.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Data.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Functions.dll
-C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\SpreadsheetGear2017.Core.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Core.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Functions.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\ExpressionTester\bin\Debug\net7.0\JCass_Data.pdb

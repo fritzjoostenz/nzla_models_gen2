@@ -222,3 +222,5 @@ C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0\NZLARoadModelsG2V1.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0\NZLARoadModelsG2V1.genruntimeconfig.cache
 C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\obj\Debug\net7.0\ref\NZLARoadModelsG2V1.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Economics.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLARoadModelsG2V1\bin\Debug\net7.0\JCass_Economics.pdb

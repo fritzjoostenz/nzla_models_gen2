@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PGbu4DiagILOateumUGQT+OGDgvfQ1D/LXeD2Vi+WGhbviayP6pvG6lQzWPr78Etw5PcBr3A/kEpAEOfp4dC9w==",
+  "dgSpecHash": "0ENHQ6MYb9lalm82erXEVVi7ywDNi5ZyhM4i5CI0wJkM0Ei7rQae97AF0lRs7FxRzlPauygOFtFpzSD9GcbSdg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\ExpressionTester.csproj",
+  "projectFilePath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\ExpressionTester\\JFunctionTester.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fritz\\.nuget\\packages\\azure.core\\1.19.0\\azure.core.1.19.0.nupkg.sha512",
     "C:\\Users\\fritz\\.nuget\\packages\\azure.storage.blobs\\12.10.0\\azure.storage.blobs.12.10.0.nupkg.sha512",

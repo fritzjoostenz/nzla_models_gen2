@@ -40,12 +40,10 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     #region Variables
 
     private MLContext mlContext;
-   
+  
           
     private ConstantsAndSubModels SetupInfo;
-
-    private Dictionary<int, RoadModSegmentV1> Segments;
-    
+        
     #endregion
 
     #region Lookup Constants
@@ -65,28 +63,9 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     public override void SetupInstance()
     {
 
-        mlContext = new MLContext(model.RandomSeed);
+       // mlContext = new MLContext(model.RandomSeed);
                 
-        this.SetupInfo = new ConstantsAndSubModels(model);
-                
-        //double rutCentre = model.GetLookupValueNumber("increments", "rut_increm_central_tendency");
-        //rutIncremModel = JCass_Functions.Engineering.Utilities.GetSkewedDistribModel_A(rutCentre);
-
-        //double naasraCentre = model.GetLookupValueNumber("increments", "naasra_increm_central_tendency");
-        //naasraIncremModel = JCass_Functions.Engineering.Utilities.GetSkewedDistribModel_A(naasraCentre);
-
-        
-
-        //// Piece wise linear model to convert absolute rut depth (in mm) to a distres index scale 0 to 4
-        //// The X-values are the percentiles same as was used to calculate index values for distresses
-        //List<double> x_rut = new List<double> { 3.65, 4.05, 5, 6.55, 7.85, 9.65, 14, 19.688, 39.5 };
-        //List<double> y_index = new List<double> { 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4 };
-        //rutToIndexConversionModel = new PieceWiseLinearModelGeneric(x_rut, y_index, false);
-
-        
-
-        this.Segments = new Dictionary<int, RoadModSegmentV1>();        
-
+        //this.SetupInfo = new ConstantsAndSubModels(model);               
     }
 
     #endregion
@@ -98,13 +77,10 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         Dictionary<string, object> values = this.model.GetParametersForJFunctions(iElemIndex, rawRow, null, 0);
                 
         model.FunctionSet.Evaluate(values, "initialise");
-
         double[] newValues = this.model.GetModelParameterValuesFromJFunctionResultSet(new double[this.model.NParameters], values);
 
         return newValues;
     }
-
-    
 
     public override double[] InitialiseForCalibration(int iElemIndex, string[] rawRow)
     {
@@ -164,18 +140,42 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     public override List<TreatmentStrategy> GetStrategies(ModelBase model, int ielem, int iPeriod, string[] rawRow, double[] prevValues)
     {
-        
-        int prevEpoch = iPeriod - 1;
+        if (ielem == 12)
+        {
+            int kk = 9;
+        }
+        try
+        {
+            Dictionary<string, object> functionValues = this.model.GetParametersForJFunctions(ielem, rawRow, prevValues, iPeriod);
+            model.FunctionSet.Evaluate(functionValues, "triggers");
 
-        RoadModSegmentV1 segment = this.Segments[ielem];
-        
-        int periodsToNextTreatment = model.Treatments.PeriodsToNextTreatment(ielem, iPeriod);
-        return segment.GetStrategies(ielem, iPeriod, periodsToNextTreatment);
+            List<TreatmentStrategy> strategies = new List<TreatmentStrategy>();
+            for (int j = 0; j < this.model.StrategiesSetupData.Count; j++)
+            {
+                Dictionary<string, object> setupRow = this.model.StrategiesSetupData.Row(j);
+                if (TreatmentStrategy.IsTriggered(setupRow, functionValues))
+                {
+                    TreatmentStrategy strategy = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
+                    strategy.SetupFromDefinitionRow(setupRow, functionValues);
+                    strategies.Add(strategy);
+                    if (strategy.FirstTreatment.Force) { break; }
+                }
+            }
+            if (strategies.Count > 1)
+            {
+                int kk = 9;
+            }
+            return strategies;
+        }
+        catch (Exception ex) 
+        { 
+            throw new Exception($"Error generating strategies for element {ielem}. Details: {ex.Message}");
+        }        
     }
 
-    public override double[] Increment(int iElemIndex, string[] rawRow, double[] prevValues)
+    public override double[] Increment(int iElemIndex, int iPeriod, string[] rawRow, double[] prevValues)
     {
-        Dictionary<string, object> values = this.model.GetParametersForJFunctions(iElemIndex, rawRow, prevValues, 0);
+        Dictionary<string, object> values = this.model.GetParametersForJFunctions(iElemIndex, rawRow, prevValues, iPeriod);
 
         model.FunctionSet.Evaluate(values, "increment");
 
@@ -185,11 +185,17 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
 
     }
 
-    public override double[] Reset(TreatmentInstance treatment, int iElemIndex, string[] rawRow, double[] prevValues)
+    public override double[] Reset(TreatmentInstance treatment, int iElemIndex, int iPeriod, string[] rawRow, double[] prevValues)
     {
-        RoadModSegmentV1 segment = this.Segments[iElemIndex];
-        segment.Reset(treatment.TreatmentName);
-        return segment.GetParameterValuesArray();
+        if (iElemIndex == 12)
+        {
+            int kk = 9;
+        }
+        Dictionary<string, object> functionValues = this.model.GetParametersForJFunctions(iElemIndex, rawRow, prevValues, iPeriod, treatment);
+        model.FunctionSet.Evaluate(functionValues, "resets");
+
+        double[] newValues = this.model.GetModelParameterValuesFromJFunctionResultSet(new double[this.model.NParameters], functionValues);
+        return newValues;
     }
 
     public override TreatmentInstance GetTriggeredMaintenance(ModelBase model, int iElem, int iPeriod, double[] paramValues, string[] rawData)
