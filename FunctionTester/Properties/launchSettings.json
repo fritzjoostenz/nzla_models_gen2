@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JFunctionTester": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\fritz\\Juno Services Dropbox\\Local_Authorities\\aa_gen2_models\\model_development\\functions_testing\\FunctionsTest1.xlsx\"\r\n"
+    }
+  }
+}
