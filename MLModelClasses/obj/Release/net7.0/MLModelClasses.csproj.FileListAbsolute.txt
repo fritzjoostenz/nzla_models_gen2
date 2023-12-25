@@ -1,0 +1,15 @@
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Release\net7.0\MLModelClasses.deps.json
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Release\net7.0\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Release\net7.0\MLModelClasses.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Release\net7.0\JCass_Data.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Release\net7.0\JCass_Data.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.csproj.AssemblyReference.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.AssemblyInfoInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.AssemblyInfo.cs
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.csproj.CoreCompileInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.csproj.CopyComplete
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\refint\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\MLModelClasses.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Release\net7.0\ref\MLModelClasses.dll
