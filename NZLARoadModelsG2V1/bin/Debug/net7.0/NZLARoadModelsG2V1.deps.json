@@ -8,12 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "NZLARoadModelsG2V1/1.0.0": {
         "dependencies": {
-          "JCass_ModelCore": "1.0.0",
-          "MLModelClasses": "1.0.0",
-          "MSTest.TestAdapter": "3.1.1",
-          "MSTest.TestFramework": "3.1.1",
-          "Microsoft.NET.Test.Sdk": "17.8.0",
-          "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions": "14.0.0.0"
+          "JCass_ModelCore": "1.0.0"
         },
         "runtime": {
           "NZLARoadModelsG2V1.dll": {}
@@ -106,7 +101,7 @@
           }
         }
       },
-      "LightGBM/3.3.5": {
+      "LightGBM/2.3.1": {
         "runtimeTargets": {
           "runtimes/linux-x64/native/lib_lightgbm.so": {
             "rid": "linux-x64",
@@ -198,25 +193,6 @@
           }
         }
       },
-      "Microsoft.CodeCoverage/17.8.0": {
-        "runtime": {
-          "lib/netcoreapp3.1/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.623.45702"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration/2.1.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
       "Microsoft.Extensions.Configuration.Abstractions/7.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "7.0.0"
@@ -225,82 +201,6 @@
           "lib/net7.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration.Binder/2.1.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.1.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
-      "Microsoft.Extensions.Logging/2.1.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Binder": "2.1.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Logging.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Options": "2.1.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/2.1.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
-      "Microsoft.Extensions.ML/3.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Logging": "2.1.0",
-          "Microsoft.Extensions.ObjectPool": "2.1.0",
-          "Microsoft.Extensions.Options": "2.1.0",
-          "Microsoft.ML": "3.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.ML.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
-          }
-        }
-      },
-      "Microsoft.Extensions.ObjectPool/2.1.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.ObjectPool.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
-          }
-        }
-      },
-      "Microsoft.Extensions.Options/2.1.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Primitives": "7.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.18136"
           }
         }
       },
@@ -388,45 +288,45 @@
           }
         }
       },
-      "Microsoft.ML/3.0.0": {
+      "Microsoft.ML/2.0.1": {
         "dependencies": {
-          "Microsoft.ML.CpuMath": "3.0.0",
-          "Microsoft.ML.DataView": "3.0.0",
+          "Microsoft.ML.CpuMath": "2.0.1",
+          "Microsoft.ML.DataView": "2.0.1",
           "Newtonsoft.Json": "13.0.1",
           "System.CodeDom": "4.5.0",
           "System.Collections.Immutable": "1.5.0",
-          "System.Memory": "4.5.5",
+          "System.Memory": "4.5.3",
           "System.Reflection.Emit.Lightweight": "4.3.0",
           "System.Threading.Channels": "4.7.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.Core.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.Data.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.KMeansClustering.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.PCA.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.StandardTrainers.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.Transforms.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           },
           "lib/netstandard2.0/Microsoft.ML.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           }
         },
         "runtimeTargets": {
@@ -455,54 +355,46 @@
             "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
-          "runtimes/win-arm64/native/LdaNative.dll": {
-            "rid": "win-arm64",
-            "assetType": "native",
-            "fileVersion": "0.2100.23.57203"
-          },
           "runtimes/win-x64/native/LdaNative.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "0.2100.23.57203"
+            "fileVersion": "0.2000.123.8101"
           },
           "runtimes/win-x86/native/LdaNative.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "0.2100.23.57203"
+            "fileVersion": "0.2000.123.8101"
           }
         }
       },
-      "Microsoft.ML.CpuMath/3.0.0": {
-        "dependencies": {
-          "System.Numerics.Tensors": "8.0.0"
-        },
+      "Microsoft.ML.CpuMath/2.0.1": {
         "runtime": {
-          "lib/net6.0/Microsoft.ML.CpuMath.dll": {
+          "lib/netcoreapp3.1/Microsoft.ML.CpuMath.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           }
         }
       },
-      "Microsoft.ML.DataView/3.0.0": {
+      "Microsoft.ML.DataView/2.0.1": {
         "dependencies": {
           "System.Collections.Immutable": "1.5.0",
-          "System.Memory": "4.5.5"
+          "System.Memory": "4.5.3"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           }
         }
       },
-      "Microsoft.ML.FastTree/3.0.0": {
+      "Microsoft.ML.FastTree/2.0.1": {
         "dependencies": {
-          "Microsoft.ML": "3.0.0"
+          "Microsoft.ML": "2.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.FastTree.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           }
         },
         "runtimeTargets": {
@@ -519,283 +411,30 @@
           "runtimes/win-x64/native/FastTreeNative.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "0.2100.23.57203"
+            "fileVersion": "0.2000.123.8101"
           },
           "runtimes/win-x86/native/FastTreeNative.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "0.2100.23.57203"
+            "fileVersion": "0.2000.123.8101"
           }
         }
       },
-      "Microsoft.ML.LightGbm/3.0.0": {
+      "Microsoft.ML.LightGbm/2.0.1": {
         "dependencies": {
-          "LightGBM": "3.3.5",
-          "Microsoft.ML": "3.0.0",
-          "Microsoft.ML.FastTree": "3.0.0"
+          "LightGBM": "2.3.1",
+          "Microsoft.ML": "2.0.1",
+          "Microsoft.ML.FastTree": "2.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.LightGbm.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.23.57203"
+            "fileVersion": "2.0.123.8101"
           }
-        }
-      },
-      "Microsoft.NET.Test.Sdk/17.8.0": {
-        "dependencies": {
-          "Microsoft.CodeCoverage": "17.8.0",
-          "Microsoft.TestPlatform.TestHost": "17.8.0"
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
-      "Microsoft.TestPlatform.ObjectModel/17.8.0": {
-        "dependencies": {
-          "NuGet.Frameworks": "6.5.0",
-          "System.Reflection.Metadata": "1.6.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/Microsoft.TestPlatform.CoreUtilities.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/Microsoft.TestPlatform.PlatformAbstractions.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          }
-        },
-        "resources": {
-          "lib/netcoreapp3.1/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/netcoreapp3.1/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/netcoreapp3.1/de/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netcoreapp3.1/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netcoreapp3.1/es/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netcoreapp3.1/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netcoreapp3.1/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/it/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netcoreapp3.1/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netcoreapp3.1/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netcoreapp3.1/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netcoreapp3.1/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/netcoreapp3.1/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/netcoreapp3.1/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netcoreapp3.1/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netcoreapp3.1/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/netcoreapp3.1/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/netcoreapp3.1/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netcoreapp3.1/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netcoreapp3.1/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll": {
-            "locale": "zh-Hant"
-          },
-          "lib/netcoreapp3.1/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        }
-      },
-      "Microsoft.TestPlatform.TestHost/17.8.0": {
-        "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.8.0",
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/Microsoft.TestPlatform.CommunicationUtilities.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/Microsoft.TestPlatform.CrossPlatEngine.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/Microsoft.TestPlatform.Utilities.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/Microsoft.VisualStudio.TestPlatform.Common.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          },
-          "lib/netcoreapp3.1/testhost.dll": {
-            "assemblyVersion": "15.0.0.0",
-            "fileVersion": "17.800.23.55801"
-          }
-        },
-        "resources": {
-          "lib/netcoreapp3.1/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/netcoreapp3.1/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/netcoreapp3.1/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/netcoreapp3.1/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netcoreapp3.1/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netcoreapp3.1/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "de"
-          },
-          "lib/netcoreapp3.1/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netcoreapp3.1/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netcoreapp3.1/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netcoreapp3.1/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netcoreapp3.1/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netcoreapp3.1/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/netcoreapp3.1/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netcoreapp3.1/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netcoreapp3.1/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/netcoreapp3.1/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/netcoreapp3.1/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/netcoreapp3.1/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/netcoreapp3.1/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netcoreapp3.1/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netcoreapp3.1/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/netcoreapp3.1/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/netcoreapp3.1/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/netcoreapp3.1/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/netcoreapp3.1/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netcoreapp3.1/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netcoreapp3.1/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/netcoreapp3.1/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll": {
-            "locale": "zh-Hant"
-          },
-          "lib/netcoreapp3.1/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll": {
-            "locale": "zh-Hant"
-          },
-          "lib/netcoreapp3.1/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll": {
-            "locale": "zh-Hant"
-          }
-        }
-      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -822,56 +461,6 @@
             "assetType": "runtime",
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
-      "MSTest.TestAdapter/3.1.1": {},
-      "MSTest.TestFramework/3.1.1": {
-        "runtime": {
-          "lib/net6.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
-            "assemblyVersion": "14.0.0.0",
-            "fileVersion": "3.100.123.36306"
-          }
-        },
-        "resources": {
-          "lib/net6.0/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "cs"
-          },
-          "lib/net6.0/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "de"
-          },
-          "lib/net6.0/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "es"
-          },
-          "lib/net6.0/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/net6.0/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "it"
-          },
-          "lib/net6.0/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "ja"
-          },
-          "lib/net6.0/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "ko"
-          },
-          "lib/net6.0/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/net6.0/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/net6.0/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "ru"
-          },
-          "lib/net6.0/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "tr"
-          },
-          "lib/net6.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "zh-Hans"
-          },
-          "lib/net6.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
-            "locale": "zh-Hant"
           }
         }
       },
@@ -960,14 +549,6 @@
           "lib/net6.0/NPOI.dll": {
             "assemblyVersion": "2.6.0.0",
             "fileVersion": "2.6.0.0"
-          }
-        }
-      },
-      "NuGet.Frameworks/6.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/NuGet.Frameworks.dll": {
-            "assemblyVersion": "6.5.0.154",
-            "fileVersion": "6.5.0.154"
           }
         }
       },
@@ -1491,7 +1072,7 @@
           "System.Threading": "4.3.0"
         }
       },
-      "System.Memory/4.5.5": {},
+      "System.Memory/4.5.3": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
           "System.Text.Encodings.Web": "4.7.2",
@@ -1590,14 +1171,6 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Numerics.Tensors/8.0.0": {
-        "runtime": {
-          "lib/net7.0/System.Numerics.Tensors.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53103"
-          }
-        }
-      },
       "System.Numerics.Vectors/4.5.0": {},
       "System.ObjectModel/4.3.0": {
         "dependencies": {
@@ -1678,7 +1251,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Reflection.Metadata/1.6.0": {},
       "System.Reflection.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -2183,32 +1755,12 @@
           "JCass_DataAccess": "1.0.0",
           "JCass_Economics": "1.0.0",
           "JCass_Functions": "1.0.0",
-          "Microsoft.ML": "3.0.0",
-          "Microsoft.ML.FastTree": "3.0.0",
-          "Microsoft.ML.LightGbm": "3.0.0"
+          "Microsoft.ML": "2.0.1",
+          "Microsoft.ML.FastTree": "2.0.1",
+          "Microsoft.ML.LightGbm": "2.0.1"
         },
         "runtime": {
           "JCass_ModelCore.dll": {}
-        }
-      },
-      "MLModelClasses/1.0.0": {
-        "dependencies": {
-          "JCass_Data": "1.0.0",
-          "Microsoft.Extensions.ML": "3.0.0",
-          "Microsoft.ML": "3.0.0",
-          "Microsoft.ML.FastTree": "3.0.0",
-          "Microsoft.ML.LightGbm": "3.0.0"
-        },
-        "runtime": {
-          "MLModelClasses.dll": {}
-        }
-      },
-      "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions/14.0.0.0": {
-        "runtime": {
-          "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
-            "assemblyVersion": "14.0.0.0",
-            "fileVersion": "3.100.123.36306"
-          }
         }
       }
     }
@@ -2275,12 +1827,12 @@
       "path": "enums.net/4.0.0",
       "hashPath": "enums.net.4.0.0.nupkg.sha512"
     },
-    "LightGBM/3.3.5": {
+    "LightGBM/2.3.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6LwKO13R9q8zZHbYNeHhayUj3/sN410L6B9QZfV/tyzuoaddur1Uy0yV0gK4FfLl3FVC0LxnfiCOrHva0xX3yQ==",
-      "path": "lightgbm/3.3.5",
-      "hashPath": "lightgbm.3.3.5.nupkg.sha512"
+      "sha512": "sha512-2YVf5McWa6PT00EJnVYTZLAvTQ2YArIWUmMJ3Fu46ZL1RdKnqCy1s+iUeWxvEuviaQ/cXt6M/EaWpVHnXGc9gg==",
+      "path": "lightgbm/2.3.1",
+      "hashPath": "lightgbm.2.3.1.nupkg.sha512"
     },
     "MathNet.Numerics.Signed/4.15.0": {
       "type": "package",
@@ -2324,75 +1876,12 @@
       "path": "microsoft.bcl.asyncinterfaces/1.1.1",
       "hashPath": "microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512"
     },
-    "Microsoft.CodeCoverage/17.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-KC8SXWbGIdoFVdlxKk9WHccm0llm9HypcHMLUUFabRiTS3SO2fQXNZfdiF3qkEdTJhbRrxhdRxjL4jbtwPq4Ew==",
-      "path": "microsoft.codecoverage/17.8.0",
-      "hashPath": "microsoft.codecoverage.17.8.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SS8ce1GYQTkZoOq5bskqQ+m7xiXQjnKRiGfVNZkkX2SX0HpXNRsKnSUaywRRuCje3v2KT9xeacsM3J9/G2exsQ==",
-      "path": "microsoft.extensions.configuration/2.1.0",
-      "hashPath": "microsoft.extensions.configuration.2.1.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.Configuration.Abstractions/7.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-f34u2eaqIjNO9YLHBz8rozVZ+TcFiFs0F3r7nUJd7FRkVSxk8u4OpoK226mi49MwexHOR2ibP9MFvRUaLilcQQ==",
       "path": "microsoft.extensions.configuration.abstractions/7.0.0",
       "hashPath": "microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration.Binder/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Fls0O54Ielz1DiVYpcmiUpeizN1iKGGI5yAWAoShfmUvMcQ8jAGOK1a+DaflHA5hN9IOKvmSos0yewDYAIY0ZA==",
-      "path": "microsoft.extensions.configuration.binder/2.1.0",
-      "hashPath": "microsoft.extensions.configuration.binder.2.1.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8/CtASu80UIoyG+r8FstrmZW5GLtXxzoYpjj3jV0FKZCL5CiFgSH3pAmqut/dC68mu7N1bU6v0UtKKL3gCUQGQ==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/2.1.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Logging/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kuZbZMMHb7ibzhLdn9/R1+PAAFKntlF10tOw4loB8VuQkHvSrBE6IzW1rhBLsEdmLXOgi2zFbwcXFrxzSM6ybA==",
-      "path": "microsoft.extensions.logging/2.1.0",
-      "hashPath": "microsoft.extensions.logging.2.1.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Logging.Abstractions/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GfD2VtvN9z1W+m6pZZe98yh9VWTSdNY2dZSxtca9uFIY6aBI6twvskMvLO/ktClBOTQmAov/7Em+IWFlHepa0A==",
-      "path": "microsoft.extensions.logging.abstractions/2.1.0",
-      "hashPath": "microsoft.extensions.logging.abstractions.2.1.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.ML/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0Its4ABM3eJUTHpvXlWyOGAoV55t57Hl0oFHQzpEPri/77oOF4B0yn+c2Nu2bLagQYR69jSYnjQWpyC5v8cD4Q==",
-      "path": "microsoft.extensions.ml/3.0.0",
-      "hashPath": "microsoft.extensions.ml.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.ObjectPool/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-tIbO45cohqexTJPXBubpwluycDT+6OWy2m7PukG37XMrtQ6Zv4AnoLrgUTaCmpWihSs5RZHKvThiAJFcBlR3AA==",
-      "path": "microsoft.extensions.objectpool/2.1.0",
-      "hashPath": "microsoft.extensions.objectpool.2.1.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Options/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-VOM1pPMi9+7/4Vc9aPLU8btHOBQy1+AvpqxLxFI2OVtqGv+1klPaV59g9R6aSt2U7ijfB3TjvAO4Tc/cn9/hxA==",
-      "path": "microsoft.extensions.options/2.1.0",
-      "hashPath": "microsoft.extensions.options.2.1.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Primitives/7.0.0": {
       "type": "package",
@@ -2436,47 +1925,40 @@
       "path": "microsoft.io.recyclablememorystream/2.2.0",
       "hashPath": "microsoft.io.recyclablememorystream.2.2.0.nupkg.sha512"
     },
-    "Microsoft.ML/3.0.0": {
+    "Microsoft.ML/2.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-r3G3ak3BFvu9B/sH2pX0fuFcPT1vTVMF0t595vjRwg7ZcxYQ0YG8zT8f8bGxyXAk16764GWHwOxuALDdFWjMEQ==",
-      "path": "microsoft.ml/3.0.0",
-      "hashPath": "microsoft.ml.3.0.0.nupkg.sha512"
+      "sha512": "sha512-yD5kWZfisykwiGG66wJToSicY9MP847Grl8kLALQyqyiyQjr408ChdGW1JG7D0wHN7Zbs1KkCZvidi6pMFYR/A==",
+      "path": "microsoft.ml/2.0.1",
+      "hashPath": "microsoft.ml.2.0.1.nupkg.sha512"
     },
-    "Microsoft.ML.CpuMath/3.0.0": {
+    "Microsoft.ML.CpuMath/2.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qlJTWlpGULnqIH89driG/RQAQ3Kvjix/Bypcopv046hd3a/fw/jVsS87Oa1O8jQqce+oj0kFk5oDh/62iXMyIA==",
-      "path": "microsoft.ml.cpumath/3.0.0",
-      "hashPath": "microsoft.ml.cpumath.3.0.0.nupkg.sha512"
+      "sha512": "sha512-UjxC9Ju6QPqyvTkj4ggsvnsqKYnbGO1TEypDzKDiIPBGlU/t7Pvx+oV9DDVhZzDKvb34zpLhAm/g79oBuJS3aw==",
+      "path": "microsoft.ml.cpumath/2.0.1",
+      "hashPath": "microsoft.ml.cpumath.2.0.1.nupkg.sha512"
     },
-    "Microsoft.ML.DataView/3.0.0": {
+    "Microsoft.ML.DataView/2.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-un4jBS4VYVWcGDNASmyjtAr7k5AhcYP+T6XLGqxuXlmh1txiikSM9BrDrTe2lZFHUPf+W/5A7CwPJdvHTN+w8g==",
-      "path": "microsoft.ml.dataview/3.0.0",
-      "hashPath": "microsoft.ml.dataview.3.0.0.nupkg.sha512"
+      "sha512": "sha512-w+GkAXlxaut65Lm+Fbp34YTfp0/9jGRn9uiVlL7Lls0/v+4IJM7SMTHfhvegPU48cyI6K2kzaK9j2Va/labhTA==",
+      "path": "microsoft.ml.dataview/2.0.1",
+      "hashPath": "microsoft.ml.dataview.2.0.1.nupkg.sha512"
     },
-    "Microsoft.ML.FastTree/3.0.0": {
+    "Microsoft.ML.FastTree/2.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Dw8vTdBBs36lAUzWfgc9Pgolard7lBQQyFqiumjlEhlG09E9Pz2qYv7kQNyYizxW4qHvJSKMkgA9m7mWxj+o3g==",
-      "path": "microsoft.ml.fasttree/3.0.0",
-      "hashPath": "microsoft.ml.fasttree.3.0.0.nupkg.sha512"
+      "sha512": "sha512-fLWCabYZJ1maDp8wYn/7KZfGjTmUUKutJpdeK4ZdpBK8urFMHkEOGK2cx5E/Eky5jFUMTCheCbE/NqR3uPexdA==",
+      "path": "microsoft.ml.fasttree/2.0.1",
+      "hashPath": "microsoft.ml.fasttree.2.0.1.nupkg.sha512"
     },
-    "Microsoft.ML.LightGbm/3.0.0": {
+    "Microsoft.ML.LightGbm/2.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IQgaE0k84bKPpCLqP3dQ5VT9bVM6hkAZ1mfehv/fIdxNZK6IUKs+HU3ixOaZOiMzUEjWLRIqmsTG6OgUcVbWkA==",
-      "path": "microsoft.ml.lightgbm/3.0.0",
-      "hashPath": "microsoft.ml.lightgbm.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.NET.Test.Sdk/17.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BmTYGbD/YuDHmApIENdoyN1jCk0Rj1fJB0+B/fVekyTdVidr91IlzhqzytiUgaEAzL1ZJcYCme0MeBMYvJVzvw==",
-      "path": "microsoft.net.test.sdk/17.8.0",
-      "hashPath": "microsoft.net.test.sdk.17.8.0.nupkg.sha512"
+      "sha512": "sha512-X3dE3cHwLZTB/1Y3lVd3vIRxg2qTX/PnKbJvWMw6+cL40EdXjI8RZwxy4Pvrz+tb+MPqQnmJ2zx45pkLGVU//g==",
+      "path": "microsoft.ml.lightgbm/2.0.1",
+      "hashPath": "microsoft.ml.lightgbm.2.0.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -2491,20 +1973,6 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
-    },
-    "Microsoft.TestPlatform.ObjectModel/17.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-AYy6vlpGMfz5kOFq99L93RGbqftW/8eQTqjT9iGXW6s9MRP3UdtY8idJ8rJcjeSja8A18IhIro5YnH3uv1nz4g==",
-      "path": "microsoft.testplatform.objectmodel/17.8.0",
-      "hashPath": "microsoft.testplatform.objectmodel.17.8.0.nupkg.sha512"
-    },
-    "Microsoft.TestPlatform.TestHost/17.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-9ivcl/7SGRmOT0YYrHQGohWiT5YCpkmy/UEzldfVisLm6QxbLaK3FAJqZXI34rnRLmqqDCeMQxKINwmKwAPiDw==",
-      "path": "microsoft.testplatform.testhost/17.8.0",
-      "hashPath": "microsoft.testplatform.testhost.17.8.0.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
@@ -2527,20 +1995,6 @@
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
     },
-    "MSTest.TestAdapter/3.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kMvdO5dhrUR3o1qk0fzS0St0prlKyMQAfz1ChVAUdGGobTU5ehR60szOFto0+Q7rFG5iXMvTlVIthXM9EcNYnw==",
-      "path": "mstest.testadapter/3.1.1",
-      "hashPath": "mstest.testadapter.3.1.1.nupkg.sha512"
-    },
-    "MSTest.TestFramework/3.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3rjkGxciNHHmPW8cl1/QVIYjOpfptjmAH5JrLBw+dnMTYDoweg3I579N7OIbar3Zd3q9dfWFrCy2LEV/AmPn3A==",
-      "path": "mstest.testframework/3.1.1",
-      "hashPath": "mstest.testframework.3.1.1.nupkg.sha512"
-    },
     "NETStandard.Library/1.6.1": {
       "type": "package",
       "serviceable": true,
@@ -2561,13 +2015,6 @@
       "sha512": "sha512-Pwjo65CUH3MiRnBEbVo8ff31ZrDGdGyyFJyAEncmbTQ0/gYgDkBUnGKm20aLpdwCpPNLzvapZm8v5tx4S6qAWg==",
       "path": "npoi/2.6.0",
       "hashPath": "npoi.2.6.0.nupkg.sha512"
-    },
-    "NuGet.Frameworks/6.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QWINE2x3MbTODsWT1Gh71GaGb5icBz4chS8VYvTgsBnsi8esgN6wtHhydd7fvToWECYGq7T4cgBBDiKD/363fg==",
-      "path": "nuget.frameworks/6.5.0",
-      "hashPath": "nuget.frameworks.6.5.0.nupkg.sha512"
     },
     "Portable.BouncyCastle/1.9.0": {
       "type": "package",
@@ -2989,12 +2436,12 @@
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
     },
-    "System.Memory/4.5.5": {
+    "System.Memory/4.5.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
-      "path": "system.memory/4.5.5",
-      "hashPath": "system.memory.4.5.5.nupkg.sha512"
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
     },
     "System.Memory.Data/1.0.2": {
       "type": "package",
@@ -3044,13 +2491,6 @@
       "sha512": "sha512-NUCcDroX4lCQXgOrzlwIZ1u9YJ0krfyF0wk0ONnyLUmcQoEiYV2/OfUPRqUwQBbpH1BlGApkLgoQUwMqb5+c1g==",
       "path": "system.net.websockets.client/4.0.2",
       "hashPath": "system.net.websockets.client.4.0.2.nupkg.sha512"
-    },
-    "System.Numerics.Tensors/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fhODzTe9ON9IzmRfyVeA6L8yXOciMtpq1YufkRVBliggcVKZE+XDxqIn46+yF4PWR6wNPuDpXtPpuY86VcKxUA==",
-      "path": "system.numerics.tensors/8.0.0",
-      "hashPath": "system.numerics.tensors.8.0.0.nupkg.sha512"
     },
     "System.Numerics.Vectors/4.5.0": {
       "type": "package",
@@ -3107,13 +2547,6 @@
       "sha512": "sha512-rJkrJD3kBI5B712aRu4DpSIiHRtr6QlfZSQsb0hYHrDCZORXCFjQfoipo2LaMUHoT9i1B7j7MnfaEKWDFmFQNQ==",
       "path": "system.reflection.extensions/4.3.0",
       "hashPath": "system.reflection.extensions.4.3.0.nupkg.sha512"
-    },
-    "System.Reflection.Metadata/1.6.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-COC1aiAJjCoA5GBF+QKL2uLqEBew4JsCkQmoHKbN3TlOZKa2fKLz5CpiRQKDz0RsAOEGsVKqOD5bomsXq/4STQ==",
-      "path": "system.reflection.metadata/1.6.0",
-      "hashPath": "system.reflection.metadata.1.6.0.nupkg.sha512"
     },
     "System.Reflection.Primitives/4.3.0": {
       "type": "package",
@@ -3464,16 +2897,6 @@
     },
     "JCass_ModelCore/1.0.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MLModelClasses/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions/14.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

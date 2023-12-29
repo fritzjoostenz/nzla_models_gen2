@@ -20,9 +20,9 @@ using NPOI.HSSF.Record.CF;
 using System.Runtime.CompilerServices;
 using NPOI.SS.Formula.PTG;
 using NPOI.POIFS.Crypt.Dsig.Facets;
-using JCass_ModelCore.Customiser;
+using JCass_ModelCore.DomainModels;
 using NZLARoadModelsG2V1.DomainObjects;
-using MLModelClasses.MLClasses;
+
 using JCass_Data.Objects;
 using JCass_Data.Utils;
 using JCass_Functions;
@@ -34,24 +34,14 @@ namespace JCass_CustomiserSample.Gen2;
 /// Second Generation Model, First Version for New Zealand Local Authorities
 /// Simplified model that models distress percentages rather than normalised FM distresses
 /// </summary>
-public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
+public class NZLAmodGen2V1 : DomainModelBase, IDomainModel
 {
 
     #region Variables
-
-    private MLContext mlContext;
-  
-          
-    private ConstantsAndSubModels SetupInfo;
+    
         
     #endregion
-
-    #region Lookup Constants
-
-    private Dictionary<string, PieceWiseLinearModelGeneric> DistressProgressionModels;
-
-    #endregion
-
+        
     #region Constructor/Setup
 
     public NZLAmodGen2V1()
@@ -63,9 +53,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     public override void SetupInstance()
     {
 
-       // mlContext = new MLContext(model.RandomSeed);
-                
-        //this.SetupInfo = new ConstantsAndSubModels(model);               
+         
     }
 
     #endregion
@@ -138,7 +126,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         return null;
     }
 
-    public override List<TreatmentStrategy> GetStrategies(ModelBase model, int ielem, int iPeriod, string[] rawRow, double[] prevValues)
+    public override List<TreatmentStrategy> GetStrategies(int ielem, int iPeriod, string[] rawRow, double[] prevValues)
     {
         if (ielem == 12)
         {
@@ -198,7 +186,7 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
         return newValues;
     }
 
-    public override TreatmentInstance GetTriggeredMaintenance(ModelBase model, int iElem, int iPeriod, double[] paramValues, string[] rawData)
+    public override TreatmentInstance GetTriggeredMaintenance(int iElem, int iPeriod, double[] paramValues, string[] rawData)
     {
         
         //double rander = Rando.NextDouble();
@@ -230,124 +218,6 @@ public class NZLAmodGen2V1 : CustomiserBase, ICustomiser
     }
 
     #endregion
-
-    #region Trigger Helpers
-
-    private string GetMaintenanceTreatmentName(RoadModSegmentV1 segment)
-    {
-        
-        return "none";
-    }
-
-
-    private TreatmentStrategy GetSecondCoatStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2)
-    {
-        TreatmentStrategy strat = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
-        strat.AddFirstTreatment("ChipSeal", areaM2, "Second Coat", "Policy", true);
-        return strat;
-    }
-
-    private TreatmentStrategy GetRehabACStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
-    {
-        try
-        {
-            string treatCode = GetRehabCode("ac", segment);
-            TreatmentStrategy strat = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
-            strat.AddFirstTreatment(treatCode, areaM2, $"pdi = {segment.PDI}; sdi = {segment.SDI}", "none");
-            strat.AddFollowUpTreatment("ThinAC", 10, areaM2, "", "");
-            return strat;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Error in GetRehabACStrategy. Details: {e.Message}");
-        }
-    }
-
-    private TreatmentStrategy GetRehabChipSealStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
-    {
-        try
-        {
-            string treatCode = GetRehabCode("seal", segment);
-            TreatmentStrategy strat = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
-            strat.AddFirstTreatment(treatCode, segment.AreaM2, $"pdi = {segment.PDI}; sdi = {segment.SDI}", "none");
-            int secondCoatWait = Convert.ToInt32(model.GetLookupValueNumber("second coat", segment.ONRC));
-            strat.AddFollowUpTreatment("ChipSeal", secondCoatWait, segment.AreaM2, "Second Coat", "Second coat as per policy", true);  //Forced
-            strat.AddFollowUpTreatment("ChipSeal", 10, segment.AreaM2, "none", "none");
-            return strat;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Error in GetRehabChipSealStrategy. Details: {e.Message}");
-        }
-    }
-
-    private string GetRehabCode(string surfType, RoadModSegmentV1 segment)
-    {
-        try
-        {
-            string typeCode = "";
-            if (surfType == "ac")
-            {
-                typeCode = "AC";
-            }
-            else if (surfType == "seal")
-            {
-                typeCode = "CS";
-            }
-            else
-            {
-                throw new Exception($"Surface type code '{surfType}' is not handled.");
-            }
-
-            string urbanRuralCode = segment.UrbanRural;
-
-            string roadVolumeCode = "";
-            if (model.Lists["low_vol_roads"].Contains(segment.ONRC))
-            {
-                roadVolumeCode = "L";
-            }
-            else if (model.Lists["med_vol_roads"].Contains(segment.ONRC))
-            {
-                roadVolumeCode = "M";
-            }
-            else if (model.Lists["high_vol_roads"].Contains(segment.ONRC))
-            {
-                roadVolumeCode = "H";
-            }
-            else
-            {
-                throw new Exception($"ONRC code '{segment.ONRC}' is not handled.");
-            }
-
-            return "Rehab" + typeCode + "_" + urbanRuralCode + roadVolumeCode;
-
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Error in GetRehabPostFixCode. Details: {e.Message}");
-        }
-    }
-
-
-    private TreatmentStrategy GetThinACwithRepairStrategy(int ielem, int iPeriod, string[] rawRow, double[] prevValues, double areaM2, RoadModSegmentV1 segment)
-    {
-        TreatmentStrategy strat = new TreatmentStrategy(ielem, rawRow, prevValues, iPeriod);
-        strat.AddFirstTreatment("ThinAC_SR", areaM2, $"pdi = {segment.PDI}; sdi = {segment.SDI}", "none");
-        strat.AddFollowUpTreatment("ThinAC", 8, areaM2, "", "");
-        return strat;
-    }
-
-    #endregion
-
     
-
-    #region General Helpers
-
-    
-
-    
-
-    #endregion
-    
-
+   
 }

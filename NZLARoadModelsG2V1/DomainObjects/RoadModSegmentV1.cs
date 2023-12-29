@@ -7,8 +7,6 @@ using JCass_ModelCore.Customiser;
 using JCass_ModelCore.ModelObjects;
 using JCass_ModelCore.Treatments;
 using Microsoft.ML;
-using MLModelClasses.DomainClasses;
-using MLModelClasses.MLClasses;
 using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;

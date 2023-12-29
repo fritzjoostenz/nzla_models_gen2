@@ -143,7 +143,7 @@ internal class ConstantsAndSubModels
         MSDRemLifeThresholdRehab = model.GetLookupValueNumber("thresholds", "msd_remainlife_rehab_max");
 
 
-        string coefficientsFilePath = model.ModelSetup.WorkFolder + @"ml_models\logistic_regression_coeffs.csv";
+        string coefficientsFilePath = model.Setup.WorkFolder + @"ml_models\logistic_regression_coeffs.csv";
         this.DistressProbabilityModels = new Dictionary<string, DistressProbabilityModel>();
         jcDataSet modelCoeffs = CSVHelper.ReadDataFromCsvFile(coefficientsFilePath, "distress");
         for (int i = 0; i < this.DistressParamCodes.Count; i++)
@@ -153,7 +153,7 @@ internal class ConstantsAndSubModels
             this.DistressProbabilityModels.Add(paramCode, new DistressProbabilityModel(modelCoeffs.Row(rawColCode)));
         }
 
-        coefficientsFilePath = model.ModelSetup.WorkFolder + @"ml_models\logistic_regression_rut_rough_coeffs.csv";
+        coefficientsFilePath = model.Setup.WorkFolder + @"ml_models\logistic_regression_rut_rough_coeffs.csv";
         modelCoeffs = CSVHelper.ReadDataFromCsvFile(coefficientsFilePath, "distress");
         this.RutProbabilityModel = new DistressProbabilityModel(modelCoeffs.Row("rutting"));
         this.RoughnessProbabilityModel = new DistressProbabilityModel(modelCoeffs.Row("naasra_85"));

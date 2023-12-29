@@ -8,17 +8,15 @@
 
   <ItemGroup>
     <Compile Remove="DomainObjects\RoadModSegmentV1_Dev.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <Compile Remove="UnitTests\NZLAModelsUnitTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\jcass_main\JCass_ModelCore\JCass_ModelCore.csproj" />
-    <ProjectReference Include="..\MLModelClasses\MLModelClasses.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UnitTests\" />
   </ItemGroup>
 
 </Project>
