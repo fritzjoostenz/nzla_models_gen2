@@ -1,0 +1,6 @@
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.csproj.AssemblyReference.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.AssemblyInfoInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.AssemblyInfo.cs
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.csproj.CoreCompileInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\NZLAModelBuilder\obj\Debug\net8.0\NZLAModelBuilder.sourcelink.json

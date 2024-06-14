@@ -9,8 +9,9 @@ C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLM
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.AssemblyInfo.cs
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.csproj.CoreCompileInputs.cache
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.sourcelink.json
-C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.csproj.CopyComplete
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\refint\MLModelClasses.dll
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelClasses.pdb
 C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\ref\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net8.0\MLModelC.D2091BF8.Up2Date
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net8.0\SpreadsheetGear2017.Core.dll

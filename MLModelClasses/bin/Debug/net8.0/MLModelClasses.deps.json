@@ -641,6 +641,14 @@
         "runtime": {
           "JCass_Data.dll": {}
         }
+      },
+      "SpreadsheetGear2017.Core/8.0.63.102": {
+        "runtime": {
+          "SpreadsheetGear2017.Core.dll": {
+            "assemblyVersion": "8.0.63.102",
+            "fileVersion": "8.0.63.102"
+          }
+        }
       }
     }
   },
@@ -1023,6 +1031,11 @@
     },
     "JCass_Data/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SpreadsheetGear2017.Core/8.0.63.102": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

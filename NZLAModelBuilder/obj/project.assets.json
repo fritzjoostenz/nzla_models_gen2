@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net8.0": {
       "Azure.Core/1.19.0": {
         "type": "package",
         "dependencies": {
@@ -1059,12 +1059,12 @@
       "System.Numerics.Tensors/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Numerics.Tensors.dll": {
+          "lib/net8.0/System.Numerics.Tensors.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/System.Numerics.Tensors.dll": {
+          "lib/net8.0/System.Numerics.Tensors.dll": {
             "related": ".xml"
           }
         },
@@ -1575,23 +1575,6 @@
         },
         "runtime": {
           "bin/placeholder/JCass_Data.dll": {}
-        }
-      },
-      "MLModelClasses/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "JCass_Data": "1.0.0",
-          "Microsoft.Extensions.ML": "3.0.0",
-          "Microsoft.ML": "3.0.0",
-          "Microsoft.ML.FastTree": "3.0.0",
-          "Microsoft.ML.LightGbm": "3.0.0"
-        },
-        "compile": {
-          "bin/placeholder/MLModelClasses.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MLModelClasses.dll": {}
         }
       }
     }
@@ -4368,18 +4351,12 @@
       "type": "project",
       "path": "../../jcass_main/JCass_Data/JCass_Data.csproj",
       "msbuildProject": "../../jcass_main/JCass_Data/JCass_Data.csproj"
-    },
-    "MLModelClasses/1.0.0": {
-      "type": "project",
-      "path": "../MLModelClasses/MLModelClasses.csproj",
-      "msbuildProject": "../MLModelClasses/MLModelClasses.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net8.0": [
       "JCass_Core >= 1.0.0",
       "JCass_Data >= 1.0.0",
-      "MLModelClasses >= 1.0.0",
       "Microsoft.Extensions.ML >= 3.0.0",
       "Microsoft.ML >= 3.0.0",
       "Microsoft.ML.FastTree >= 3.0.0",
@@ -4408,7 +4385,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -4416,17 +4393,14 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {
             "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Core\\JCass_Core.csproj": {
               "projectPath": "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Core\\JCass_Core.csproj"
             },
             "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Data\\JCass_Data.csproj": {
               "projectPath": "C:\\Users\\fritz\\source\\repos\\jcass_main\\JCass_Data\\JCass_Data.csproj"
-            },
-            "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\MLModelClasses\\MLModelClasses.csproj": {
-              "projectPath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\MLModelClasses\\MLModelClasses.csproj"
             }
           }
         }
@@ -4435,11 +4409,16 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "Microsoft.Extensions.ML": {
             "target": "Package",
@@ -4474,7 +4453,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
