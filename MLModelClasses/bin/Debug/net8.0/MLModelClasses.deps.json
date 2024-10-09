@@ -189,7 +189,7 @@
           "Microsoft.ML.CpuMath": "3.0.0",
           "Microsoft.ML.DataView": "3.0.0",
           "Newtonsoft.Json": "13.0.1",
-          "System.CodeDom": "4.5.0",
+          "System.CodeDom": "8.0.0",
           "System.Collections.Immutable": "1.5.0",
           "System.Memory": "4.5.5",
           "System.Reflection.Emit.Lightweight": "4.3.0",
@@ -431,11 +431,11 @@
           }
         }
       },
-      "System.CodeDom/4.5.0": {
+      "System.CodeDom/8.0.0": {
         "runtime": {
-          "lib/netstandard2.0/System.CodeDom.dll": {
-            "assemblyVersion": "4.0.1.0",
-            "fileVersion": "4.6.26515.6"
+          "lib/net8.0/System.CodeDom.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
           }
         }
       },
@@ -485,6 +485,25 @@
           "System.Runtime": "4.3.0",
           "System.Text.Encoding": "4.3.0",
           "System.Threading.Tasks": "4.3.0"
+        }
+      },
+      "System.Management/8.0.0": {
+        "dependencies": {
+          "System.CodeDom": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Management.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Management.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
         }
       },
       "System.Memory/4.5.5": {},
@@ -636,7 +655,8 @@
       "JCass_Data/1.0.0": {
         "dependencies": {
           "CSVFile": "3.1.1",
-          "NPOI": "2.6.0"
+          "NPOI": "2.6.0",
+          "System.Management": "8.0.0"
         },
         "runtime": {
           "JCass_Data.dll": {}
@@ -861,12 +881,12 @@
       "path": "sixlabors.imagesharp/2.1.3",
       "hashPath": "sixlabors.imagesharp.2.1.3.nupkg.sha512"
     },
-    "System.CodeDom/4.5.0": {
+    "System.CodeDom/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gqpR1EeXOuzNQWL7rOzmtdIz3CaXVjSQCiaGOs2ivjPwynKSJYm39X81fdlp7WuojZs/Z5t1k5ni7HtKQurhjw==",
-      "path": "system.codedom/4.5.0",
-      "hashPath": "system.codedom.4.5.0.nupkg.sha512"
+      "sha512": "sha512-WTlRjL6KWIMr/pAaq3rYqh0TJlzpouaQ/W1eelssHgtlwHAH25jXTkUphTYx9HaIIf7XA6qs/0+YhtLEQRkJ+Q==",
+      "path": "system.codedom/8.0.0",
+      "hashPath": "system.codedom.8.0.0.nupkg.sha512"
     },
     "System.Collections.Immutable/1.5.0": {
       "type": "package",
@@ -902,6 +922,13 @@
       "sha512": "sha512-3qjaHvxQPDpSOYICjUoTsmoq5u6QJAFRUITgeT/4gqkF1bajbSmb1kwSxEA8AHlofqgcKJcM8udgieRNhaJ5Cg==",
       "path": "system.io/4.3.0",
       "hashPath": "system.io.4.3.0.nupkg.sha512"
+    },
+    "System.Management/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jrK22i5LRzxZCfGb+tGmke2VH7oE0DvcDlJ1HAKYU8cPmD8XnpUT0bYn2Gy98GEhGjtfbR/sxKTVb+dE770pfA==",
+      "path": "system.management/8.0.0",
+      "hashPath": "system.management.8.0.0.nupkg.sha512"
     },
     "System.Memory/4.5.5": {
       "type": "package",
