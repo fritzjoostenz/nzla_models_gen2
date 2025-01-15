@@ -659,7 +659,10 @@
           "System.Management": "8.0.0"
         },
         "runtime": {
-          "JCass_Data.dll": {}
+          "JCass_Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "SpreadsheetGear2017.Core/8.0.63.102": {
