@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MLModelClasses")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a56ac21ad112f10798d3d3a2ebb3e2c67a45ac08")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b0b49f394afddf886a0305f74c2295c32c56ce9")]
 [assembly: System.Reflection.AssemblyProductAttribute("MLModelClasses")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MLModelClasses")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
