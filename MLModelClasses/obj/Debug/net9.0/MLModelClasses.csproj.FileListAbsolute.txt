@@ -1,0 +1,17 @@
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\MLModelClasses.deps.json
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\MLModelClasses.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\JCass_Data.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\SpreadsheetGear2017.Core.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\bin\Debug\net9.0\JCass_Data.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.csproj.AssemblyReference.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.AssemblyInfoInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.AssemblyInfo.cs
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.csproj.CoreCompileInputs.cache
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.sourcelink.json
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelC.D2091BF8.Up2Date
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\refint\MLModelClasses.dll
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\MLModelClasses.pdb
+C:\Users\fritz\source\repos\nzla_models_gen2\MLModelClasses\obj\Debug\net9.0\ref\MLModelClasses.dll
