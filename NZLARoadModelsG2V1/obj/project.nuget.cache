@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "36q8Q21vDMM=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\fritz\\source\\repos\\nzla_models_gen2\\NZLARoadModelsG2V1\\NZLARoadModelsG2V1.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project JCass_ModelCore is not compatible with net7.0 (.NETCoreApp,Version=v7.0). Project JCass_ModelCore supports: net9.0 (.NETCoreApp,Version=v9.0)",
+      "libraryId": "JCass_ModelCore",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
+}
